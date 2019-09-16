@@ -793,10 +793,7 @@ class MCU:
     def flush_moves(self, print_time):
         if self._steppersync is None:
             return
-        clock = self.print_time_to_clock(print_time)
-        if clock < 0:
-            return
-        ret = self._ffi_lib.steppersync_flush(self._steppersync, clock)
+        ret = self._ffi_lib.steppersync_flush(self._steppersync, print_time)
         if ret:
             raise error("Internal error in MCU '%s' stepcompress" % (
                 self._name,))

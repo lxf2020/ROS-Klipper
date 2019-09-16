@@ -38,6 +38,9 @@ struct stepcompress {
     struct list_head msg_queue;
     uint32_t queue_step_msgid, set_next_step_dir_msgid, oid;
     int sdir, invert_sdir;
+
+    // XXX - itersolve should own stepcompress not vice-versa
+    struct stepper_kinematics *sk;
 };
 
 
@@ -379,6 +382,13 @@ stepcompress_get_step_dir(struct stepcompress *sc)
     return sc->sdir;
 }
 
+void __visible
+stepcompress_set_itersolve(struct stepcompress *sc
+                           , struct stepper_kinematics *sk)
+{
+    sc->sk = sk;
+}
+
 
 /****************************************************************
  * Queue management
@@ -588,12 +598,25 @@ heap_replace(struct steppersync *ss, uint64_t req_clock)
 
 // Find and transmit any scheduled steps prior to the given 'move_clock'
 int __visible
-steppersync_flush(struct steppersync *ss, uint64_t move_clock)
+steppersync_flush(struct steppersync *ss, double print_time)
 {
+    // XXX
+    if (! ss->sc_num)
+        return 0;
+    uint64_t move_clock = ((print_time - ss->sc_list[0]->mcu_time_offset)
+                           * ss->sc_list[0]->mcu_freq);
+
     // Flush each stepcompress to the specified move_clock
     int i;
     for (i=0; i<ss->sc_num; i++) {
-        int ret = stepcompress_flush(ss->sc_list[i], move_clock);
+        struct stepcompress *sc = ss->sc_list[i];
+        if (sc->sk) {
+            // XXX
+            int ret = extruder_flush(sc->sk, print_time);
+            if (ret)
+                return ret;
+        }
+        int ret = stepcompress_flush(sc, move_clock);
         if (ret)
             return ret;
     }

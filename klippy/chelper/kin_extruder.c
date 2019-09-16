@@ -8,6 +8,7 @@
 #include <string.h> // memset
 #include "compiler.h" // __visible
 #include "itersolve.h" // struct stepper_kinematics
+#include "stepcompress.h" // XXX - extruder_flush
 #include "pyhelper.h" // errorf
 
 static double
@@ -51,4 +52,11 @@ extruder_move_fill(struct move *m, double print_time
 
     // Setup start distance
     m->start_pos.x = start_pos;
+}
+
+// XXX
+int
+extruder_flush(struct stepper_kinematics *sk, double print_time)
+{
+    return 0;
 }
