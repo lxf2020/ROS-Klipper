@@ -54,9 +54,12 @@ class PrinterExtruder:
         self.extrude_pos = 0.
         # Setup iterative solver
         ffi_main, ffi_lib = chelper.get_ffi()
-        self.cmove = ffi_main.gc(ffi_lib.move_alloc(), ffi_lib.free)
         self.extruder_move_fill = ffi_lib.extruder_move_fill
         self.stepper.setup_itersolve('extruder_stepper_alloc')
+        self.sk_extruder = self.stepper.set_stepper_kinematics(None)
+        stepqueue = self.stepper.mcu_stepper._stepqueue # XXX
+        #    XXX - breaks force_move
+        ffi_lib.stepcompress_set_itersolve(stepqueue, self.sk_extruder)
         # Setup SET_PRESSURE_ADVANCE command
         gcode = self.printer.lookup_object('gcode')
         if self.name in ('extruder', 'extruder0'):
@@ -203,9 +206,8 @@ class PrinterExtruder:
 
         # Generate steps
         self.extruder_move_fill(
-            self.cmove, print_time, accel_t, cruise_t, decel_t, start_pos,
+            self.sk_extruder, print_time, accel_t, cruise_t, decel_t, start_pos,
             start_v, cruise_v, accel, extra_accel_v, extra_decel_v)
-        self.stepper.step_itersolve(self.cmove)
         self.extrude_pos = start_pos + axis_d
     cmd_SET_PRESSURE_ADVANCE_help = "Set pressure advance parameters"
     def cmd_default_SET_PRESSURE_ADVANCE(self, params):
