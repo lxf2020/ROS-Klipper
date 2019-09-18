@@ -87,8 +87,10 @@ defs_kin_extruder = """
     struct stepper_kinematics *extruder_stepper_alloc(void);
     void extruder_move_fill(struct stepper_kinematics *sk, double print_time
         , double accel_t, double cruise_t, double decel_t, double start_pos
-        , double start_v, double cruise_v, double accel
-        , double extra_accel_v, double extra_decel_v);
+        , double start_ps_pos, double start_v, double cruise_v, double accel
+        , int is_pa_move);
+    void extruder_set_pressure(struct stepper_kinematics *sk
+        , double pressure_advance, double smooth_time);
 """
 
 defs_serialqueue = """

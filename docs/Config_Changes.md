@@ -6,6 +6,9 @@ All dates in this document are approximate.
 
 # Changes
 
+20190920: The pressure_advance_lookahead_time parameter has been
+removed. See example.cfg for alternate configuration settings.
+
 20190918: The zhop option in [safe_z_homing] is always re-applied
 after Z axis homing completed. This might need users to update custom
 scripts based on this module.

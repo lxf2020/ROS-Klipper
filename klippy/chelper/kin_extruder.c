@@ -1,6 +1,6 @@
 // Extruder stepper pulse time generation
 //
-// Copyright (C) 2018  Kevin O'Connor <kevin@koconnor.net>
+// Copyright (C) 2018-2019  Kevin O'Connor <kevin@koconnor.net>
 //
 // This file may be distributed under the terms of the GNU GPLv3 license.
 
@@ -12,6 +12,11 @@
 #include "stepcompress.h" // XXX - extruder_flush
 #include "pyhelper.h" // errorf
 
+struct extruder_stepper {
+    struct stepper_kinematics sk;
+    double pressure_advance, smooth_time;
+};
+
 static double
 extruder_calc_position(struct stepper_kinematics *sk, struct move *m
                        , double move_time)
@@ -22,11 +27,11 @@ extruder_calc_position(struct stepper_kinematics *sk, struct move *m
 struct stepper_kinematics * __visible
 extruder_stepper_alloc(void)
 {
-    struct stepper_kinematics *sk = malloc(sizeof(*sk));
-    memset(sk, 0, sizeof(*sk));
-    list_init(&sk->moves);
-    sk->calc_position = extruder_calc_position;
-    return sk;
+    struct extruder_stepper *es = malloc(sizeof(*es));
+    memset(es, 0, sizeof(*es));
+    list_init(&es->sk.moves);
+    es->sk.calc_position = extruder_calc_position;
+    return &es->sk;
 }
 
 // xxx - Need an extruder_stepper_free() function
@@ -35,9 +40,9 @@ extruder_stepper_alloc(void)
 void __visible
 extruder_move_fill(struct stepper_kinematics *sk, double print_time
                    , double accel_t, double cruise_t, double decel_t
-                   , double start_pos
+                   , double start_pos, double start_pa_pos
                    , double start_v, double cruise_v, double accel
-                   , double extra_accel_v, double extra_decel_v)
+                   , int is_pa_move)
 {
     struct move *m = move_alloc();
 
@@ -46,14 +51,14 @@ extruder_move_fill(struct stepper_kinematics *sk, double print_time
     m->move_t = accel_t + cruise_t + decel_t;
     m->accel_t = accel_t;
     m->cruise_t = cruise_t;
-    m->cruise_start_d = accel_t * (.5 * (cruise_v + start_v) + extra_accel_v);
+    m->cruise_start_d = accel_t * .5 * (cruise_v + start_v);
     m->decel_start_d = m->cruise_start_d + cruise_t * cruise_v;
 
     // Setup for accel/cruise/decel phases
     m->cruise_v = cruise_v;
-    m->accel.c1 = start_v + extra_accel_v;
+    m->accel.c1 = start_v;
     m->accel.c2 = .5 * accel;
-    m->decel.c1 = cruise_v + extra_decel_v;
+    m->decel.c1 = cruise_v;
     m->decel.c2 = -m->accel.c2;
 
     // Setup start distance
@@ -61,6 +66,15 @@ extruder_move_fill(struct stepper_kinematics *sk, double print_time
 
     // Add to list
     list_add_tail(&m->node, &sk->moves);
+}
+
+void __visible
+extruder_set_pressure(struct stepper_kinematics *sk
+                      , double pressure_advance, double smooth_time)
+{
+    struct extruder_stepper *es = container_of(sk, struct extruder_stepper, sk);
+    es->pressure_advance = pressure_advance;
+    es->smooth_time = smooth_time;
 }
 
 // XXX
