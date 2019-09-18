@@ -65,7 +65,8 @@ extruder_move_fill(struct stepper_kinematics *sk, double print_time
 
 // XXX
 int
-extruder_flush(struct stepper_kinematics *sk, double print_time)
+extruder_flush(struct stepper_kinematics *sk
+               , double step_gen_time, double print_time)
 {
     struct move *m, *next;
     list_for_each_entry_safe(m, next, &sk->moves, node) {

@@ -598,12 +598,13 @@ heap_replace(struct steppersync *ss, uint64_t req_clock)
 
 // Find and transmit any scheduled steps prior to the given 'move_clock'
 int __visible
-steppersync_flush(struct steppersync *ss, double print_time)
+steppersync_flush(struct steppersync *ss
+                  , double step_gen_time, double print_time)
 {
     // XXX
     if (! ss->sc_num)
         return 0;
-    uint64_t move_clock = ((print_time - ss->sc_list[0]->mcu_time_offset)
+    uint64_t move_clock = ((step_gen_time - ss->sc_list[0]->mcu_time_offset)
                            * ss->sc_list[0]->mcu_freq);
 
     // Flush each stepcompress to the specified move_clock
@@ -612,7 +613,7 @@ steppersync_flush(struct steppersync *ss, double print_time)
         struct stepcompress *sc = ss->sc_list[i];
         if (sc->sk) {
             // XXX
-            int ret = extruder_flush(sc->sk, print_time);
+            int ret = extruder_flush(sc->sk, step_gen_time, print_time);
             if (ret)
                 return ret;
         }

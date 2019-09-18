@@ -37,9 +37,11 @@ struct steppersync *steppersync_alloc(
 void steppersync_free(struct steppersync *ss);
 void steppersync_set_time(struct steppersync *ss, double time_offset
                           , double mcu_freq);
-int steppersync_flush(struct steppersync *ss, double print_time);
+int steppersync_flush(struct steppersync *ss, double step_gen_time
+                      , double print_time);
 
 // XXX
-int extruder_flush(struct stepper_kinematics *sk, double print_time);
+int extruder_flush(struct stepper_kinematics *sk, double step_gen_time
+                   , double print_time);
 
 #endif // stepcompress.h

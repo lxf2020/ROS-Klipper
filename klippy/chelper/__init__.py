@@ -41,7 +41,8 @@ defs_stepcompress = """
     void steppersync_free(struct steppersync *ss);
     void steppersync_set_time(struct steppersync *ss
         , double time_offset, double mcu_freq);
-    int steppersync_flush(struct steppersync *ss, double print_time);
+    int steppersync_flush(struct steppersync *ss, double step_gen_time
+        , double print_time);
 """
 
 defs_itersolve = """
