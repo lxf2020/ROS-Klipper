@@ -14,6 +14,7 @@
 
 struct extruder_stepper {
     struct stepper_kinematics sk;
+    double cur_move_time;
     double pressure_advance, smooth_time;
 };
 
@@ -82,12 +83,27 @@ int
 extruder_flush(struct stepper_kinematics *sk
                , double step_gen_time, double print_time)
 {
-    struct move *m, *next;
-    list_for_each_entry_safe(m, next, &sk->moves, node) {
-        int32_t ret = itersolve_gen_steps(sk, m);
+    struct extruder_stepper *es = container_of(sk, struct extruder_stepper, sk);
+    double flush_time = print_time - es->smooth_time;
+    if (flush_time < step_gen_time)
+        flush_time = step_gen_time;
+
+    while (!list_empty(&es->sk.moves)) {
+        struct move *m = list_first_entry(&es->sk.moves, struct move, node);
+        double move_print_time = m->print_time;
+        if (move_print_time >= flush_time)
+            break;
+        double start = es->cur_move_time, end = m->move_t;
+        if (move_print_time + end > flush_time)
+            end = flush_time - move_print_time;
+        int32_t ret = itersolve_gen_steps_range(sk, m, start, end);
         if (ret)
-            // XXX - free list
             return ret;
+        if (end < m->move_t) {
+            es->cur_move_time = end;
+            break;
+        }
+        es->cur_move_time = 0.;
         list_del(&m->node);
         free(m);
     }
