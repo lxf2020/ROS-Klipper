@@ -14,7 +14,7 @@
 
 struct extruder_stepper {
     struct stepper_kinematics sk;
-    double cur_move_time;
+    double last_print_time;
     double pressure_advance, smooth_time;
 };
 
@@ -88,24 +88,42 @@ extruder_flush(struct stepper_kinematics *sk
     if (flush_time < step_gen_time)
         flush_time = step_gen_time;
 
+    struct move null_move;
     while (!list_empty(&es->sk.moves)) {
         struct move *m = list_first_entry(&es->sk.moves, struct move, node);
         double move_print_time = m->print_time;
-        if (move_print_time >= flush_time)
+        double last_print_time = es->last_print_time;
+        if (last_print_time >= move_print_time + m->move_t) {
+            list_del(&m->node);
+            free(m);
+            continue;
+        }
+        if (es->smooth_time && last_print_time + .000000001 < move_print_time) {
+            // Insert null move
+            double null_print_time = move_print_time - es->smooth_time;
+            if (last_print_time > null_print_time)
+                null_print_time = last_print_time;
+            memset(&null_move, 0, sizeof(null_move));
+            null_move.print_time = null_print_time;
+            null_move.move_t = move_print_time - null_print_time;
+            null_move.cruise_t = null_move.move_t;
+            null_move.start_pos = m->start_pos;
+            m = &null_move;
+            move_print_time = null_print_time;
+        }
+
+        double start = 0., end = m->move_t;
+        if (last_print_time > move_print_time)
+            start = last_print_time - move_print_time;
+        if (move_print_time + start >= flush_time)
             break;
-        double start = es->cur_move_time, end = m->move_t;
         if (move_print_time + end > flush_time)
             end = flush_time - move_print_time;
+        //errorf("solve %d %.6f/%.6f %.6f %.6f", m == &null_move, m->print_time, m->move_t, start, end);
         int32_t ret = itersolve_gen_steps_range(sk, m, start, end);
         if (ret)
             return ret;
-        if (end < m->move_t) {
-            es->cur_move_time = end;
-            break;
-        }
-        es->cur_move_time = 0.;
-        list_del(&m->node);
-        free(m);
+        es->last_print_time = move_print_time + end;
     }
     return 0;
 }
