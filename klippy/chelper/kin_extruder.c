@@ -15,14 +15,38 @@
 struct extruder_stepper {
     struct stepper_kinematics sk;
     double last_print_time;
-    double pressure_advance, smooth_time;
+    double pressure_advance_factor, smooth_time;
 };
 
 static double
 extruder_calc_position(struct stepper_kinematics *sk, struct move *m
                        , double move_time)
 {
-    return m->start_pos.x + move_get_distance(m, move_time);
+    struct extruder_stepper *es = container_of(sk, struct extruder_stepper, sk);
+    double dist = move_get_distance(m, move_time);
+    double base_pos = m->start_pos.x + dist;
+    if (! es->smooth_time)
+        return base_pos;
+    double pa_start_pos = m->start_pos.y + (m->start_pos.z ? dist : 0.);
+    double end_time = move_time + es->smooth_time;
+    for (;;) {
+        if (end_time <= m->move_t)
+            break;
+        if (m->node.next == &es->sk.moves.root) {
+            end_time = m->move_t;
+            break;
+        }
+        struct move *next_move = container_of(m->node.next, struct move, node);
+        if (end_time <= next_move->print_time - m->print_time) {
+            end_time = m->move_t;
+            break;
+        }
+        end_time -= next_move->print_time - m->print_time;
+        m = next_move;
+    }
+    double end_dist = move_get_distance(m, end_time);
+    double pa_end_pos = m->start_pos.y + (m->start_pos.z ? end_dist : 0.);
+    return base_pos + (pa_end_pos - pa_start_pos) * es->pressure_advance_factor;
 }
 
 struct stepper_kinematics * __visible
@@ -64,6 +88,8 @@ extruder_move_fill(struct stepper_kinematics *sk, double print_time
 
     // Setup start distance
     m->start_pos.x = start_pos;
+    m->start_pos.y = start_pa_pos;
+    m->start_pos.z = is_pa_move; // XXX
 
     // Add to list
     list_add_tail(&m->node, &sk->moves);
@@ -74,7 +100,11 @@ extruder_set_pressure(struct stepper_kinematics *sk
                       , double pressure_advance, double smooth_time)
 {
     struct extruder_stepper *es = container_of(sk, struct extruder_stepper, sk);
-    es->pressure_advance = pressure_advance;
+    if (! smooth_time) {
+        es->pressure_advance_factor = es->smooth_time = 0.;
+        return;
+    }
+    es->pressure_advance_factor = pressure_advance / smooth_time;
     es->smooth_time = smooth_time;
 }
 
@@ -104,6 +134,7 @@ extruder_flush(struct stepper_kinematics *sk
             if (last_print_time > null_print_time)
                 null_print_time = last_print_time;
             memset(&null_move, 0, sizeof(null_move));
+            null_move.node.next = &m->node;
             null_move.print_time = null_print_time;
             null_move.move_t = move_print_time - null_print_time;
             null_move.cruise_t = null_move.move_t;
@@ -119,7 +150,6 @@ extruder_flush(struct stepper_kinematics *sk
             break;
         if (move_print_time + end > flush_time)
             end = flush_time - move_print_time;
-        //errorf("solve %d %.6f/%.6f %.6f %.6f", m == &null_move, m->print_time, m->move_t, start, end);
         int32_t ret = itersolve_gen_steps_range(sk, m, start, end);
         if (ret)
             return ret;
