@@ -57,8 +57,8 @@ of each test print.
 
 Typical pressure advance values are between 0.050 and 1.000 (the high
 end usually only with bowden extruders). If there is no significant
-improvement with a pressure advance of 1.000, then pressure advance is
-unlikely to improve the quality of prints. Return to a default
+improvement with a pressure advance up to 1.000, then pressure advance
+is unlikely to improve the quality of prints. Return to a default
 configuration with pressure advance disabled.
 
 Although this tuning exercise directly improves the quality of
