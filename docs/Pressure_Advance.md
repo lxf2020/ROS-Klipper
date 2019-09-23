@@ -47,7 +47,7 @@ height.
 ![tune_pa](img/tune_pa.jpg)
 
 The pressure_advance value can then be calculated as `pressure_advance
-= <start> + <measured_height> / <increment>`. (For example,
+= <start> + <measured_height> * <increment>`. (For example,
 `0.000 + 12.90 * .020` would be `.258`.)
 
 It is possible to choose custom settings for START and INCREMENT if
