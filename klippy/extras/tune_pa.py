@@ -30,8 +30,6 @@ class TunePressureAdvance:
     cmd_TUNE_PRESSURE_ADVANCE_SMOOTH_TIME_help = "Tune pressure smooth time"
     def cmd_TUNE_PRESSURE_ADVANCE_SMOOTH_TIME(self, params):
         self.tune.start_tuning_test(params, self.update_smooth)
-        self.gcode.run_script_from_command(
-            "SET_VELOCITY_LIMIT ACCEL=500 SQUARE_CORNER_VELOCITY=1")
     def update_smooth(self, z, val):
         logging.info("TUNE_PRESSURE_ADVANCE_SMOOTH_TIME z=%.3f t=%.6f", z, val)
         self.gcode.run_script_from_command(
