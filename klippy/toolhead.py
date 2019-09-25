@@ -196,7 +196,7 @@ class MoveQueue:
 STALL_TIME = 0.100
 
 DRIP_SEGMENT_TIME = 0.050
-DRIP_TIME = 0.150
+DRIP_TIME = 0.100
 class DripModeEndSignal(Exception):
     pass
 
@@ -305,7 +305,8 @@ class ToolHead:
                     raise DripModeEndSignal()
                 curtime = self.reactor.monotonic()
                 est_print_time = self.mcu.estimated_print_time(curtime)
-                wait_time = self.print_time - est_print_time - DRIP_TIME
+                wait_time = (self.print_time - est_print_time
+                             - DRIP_TIME - self.move_flush_time)
                 if wait_time <= 0. or self.mcu.is_fileoutput():
                     return self.print_time
                 self.drip_completion.wait(curtime + wait_time)
