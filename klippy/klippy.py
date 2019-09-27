@@ -118,6 +118,7 @@ class Printer:
     def _read_config(self):
         self.objects['configfile'] = pconfig = configfile.PrinterConfig(self)
         config = pconfig.read_main_config()
+        print config 
         if self.bglogger is not None:
             pconfig.log_config(config)
         # Create printer components
