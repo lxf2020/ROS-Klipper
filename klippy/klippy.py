@@ -51,7 +51,7 @@ class Printer:
     def __init__(self, input_fd, bglogger, start_args):
         self.bglogger = bglogger
         self.start_args = start_args
-        print 'bbbbbbbbbbbbbbbbbbbbbbbbb'
+        logging.info("bbbbbbbbbbbbbbbbbbbbbbbbb") 
         self.reactor = reactor.Reactor()
         self.reactor.register_callback(self._connect)
         self.state_message = message_startup
@@ -119,7 +119,7 @@ class Printer:
     def _read_config(self):
         self.objects['configfile'] = pconfig = configfile.PrinterConfig(self)
         config = pconfig.read_main_config()
-        print config 
+        logging.info("ddddddddddddddddddddddddddddddddd") 
         if self.bglogger is not None:
             pconfig.log_config(config)
         # Create printer components
@@ -132,7 +132,7 @@ class Printer:
         # Validate that there are no undefined parameters in the config file
         pconfig.check_unused_options(config)
     def _connect(self, eventtime):
-        print 'ccccccccccccccccccccccccc'
+        logging.info("cccccccccccccccccccccccccccccccccc") 
         try:
             self._read_config()
             for cb in self.event_handlers.get("klippy:connect", []):
@@ -242,7 +242,7 @@ def main():
                     action="callback", callback=arg_dictionary,
                     help="file to read for mcu protocol dictionary")
     options, args = opts.parse_args()
-    print 'aaaaaaaaaaaaaaaaaaaaaaa'
+    
     if len(args) != 1:
         opts.error("Incorrect number of arguments")
     start_args = {'config_file': args[0], 'start_reason': 'startup'}
@@ -283,7 +283,7 @@ def main():
         if bglogger is not None:
             bglogger.clear_rollover_info()
             bglogger.set_rollover_info('versions', versions)
-        print 'x'    
+        logging.info("aaaaaaaaaaaaaaaaaaaaaaaaa")   
         printer = Printer(input_fd, bglogger, start_args)
         res = printer.run()
         if res in ['exit', 'error_exit']:
