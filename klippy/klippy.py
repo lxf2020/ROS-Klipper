@@ -129,6 +129,7 @@ class Printer:
         for section_config in config.get_prefix_sections(''):
             self.try_load_module(config, section_config.get_name())
             logging.info(section_config) 
+            logging.info(section_config.get_name()) 
         logging.info("fffffffffffffffffffffffffffffffffff") 
         for m in [toolhead]:
             m.add_printer_objects(config)
