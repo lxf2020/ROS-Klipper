@@ -125,8 +125,11 @@ class Printer:
         # Create printer components
         for m in [pins, heater, mcu]:
             m.add_printer_objects(config)
+        logging.info("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") 
         for section_config in config.get_prefix_sections(''):
             self.try_load_module(config, section_config.get_name())
+        logging.info(section_config) 
+        logging.info("fffffffffffffffffffffffffffffffffff") 
         for m in [toolhead]:
             m.add_printer_objects(config)
         # Validate that there are no undefined parameters in the config file
@@ -167,7 +170,6 @@ class Printer:
             self.invoke_shutdown("Internal error during ready callback: %s" % (
                 str(e),))
     def run(self):
-        print 'ddddddddddddddddddddddd'
         systime = time.time()
         monotime = self.reactor.monotonic()
         logging.info("Start printer at %s (%.1f %.1f)",
@@ -299,5 +301,4 @@ def main():
         sys.exit(-1)
 
 if __name__ == '__main__':
-    print 'ffffffffffffffffffffffffffff'
     main()
