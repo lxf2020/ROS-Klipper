@@ -114,7 +114,9 @@ class Printer:
                                   'extras', module_name, '__init__.py')
         logging.info(py_dirname)
         if not os.path.exists(py_name) and not os.path.exists(py_dirname):
+            logging.info("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
             return None
+        logging.info("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
         mod = importlib.import_module('extras.' + module_name)
         init_func = 'load_config'
         if len(module_parts) > 1:
