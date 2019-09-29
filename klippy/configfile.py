@@ -75,7 +75,7 @@ class ConfigWrapper:
         logging.info("gggggggggggggggggggggggggggggg") 
         logging.info(prefix) 
         logging.info(self.fileconfig) 
-        self.fileconfig.sections()
+        logging.info(self.fileconfig.sections())
         logging.info("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh") 
         return [self.getsection(s) for s in self.fileconfig.sections()
                 if s.startswith(prefix)]
