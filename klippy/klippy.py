@@ -102,8 +102,8 @@ class Printer:
         logging.info(self.objects)
         logging.info("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
         if section in self.objects:
-            return self.objects[section]
             logging.info("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
+            return self.objects[section]
         module_parts = section.split()
         logging.info(module_parts)
         logging.info("lllllllllllllllllllllllllllllll")
