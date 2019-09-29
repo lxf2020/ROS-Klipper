@@ -98,8 +98,11 @@ class Printer:
         if self.bglogger is not None:
             self.bglogger.set_rollover_info(name, info)
     def try_load_module(self, config, section):
+        logging.info(self.objects)
+        logging.info("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
         if section in self.objects:
             return self.objects[section]
+            logging.info("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
         module_parts = section.split()
         module_name = module_parts[0]
         py_name = os.path.join(os.path.dirname(__file__),
