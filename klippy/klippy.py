@@ -104,6 +104,8 @@ class Printer:
             return self.objects[section]
             logging.info("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
         module_parts = section.split()
+        logging.info(module_parts)
+        logging.info("lllllllllllllllllllllllllllllll")
         module_name = module_parts[0]
         py_name = os.path.join(os.path.dirname(__file__),
                                'extras', module_name + '.py')
