@@ -109,8 +109,10 @@ class Printer:
         module_name = module_parts[0]
         py_name = os.path.join(os.path.dirname(__file__),
                                'extras', module_name + '.py')
+        logging.info(py_name)
         py_dirname = os.path.join(os.path.dirname(__file__),
                                   'extras', module_name, '__init__.py')
+        logging.info(py_dirname)
         if not os.path.exists(py_name) and not os.path.exists(py_dirname):
             return None
         mod = importlib.import_module('extras.' + module_name)
