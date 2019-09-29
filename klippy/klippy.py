@@ -54,6 +54,7 @@ class Printer:
         logging.info("bbbbbbbbbbbbbbbbbbbbbbbbb") 
         self.reactor = reactor.Reactor()
         self.reactor.register_callback(self._connect)
+        logging.info("tttttttttttttttttttttttttttttttt")
         self.state_message = message_startup
         self.is_shutdown = False
         self.run_result = None
