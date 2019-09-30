@@ -449,6 +449,7 @@ class CommandWrapper:
 class MCU:
     error = error
     def __init__(self, config, clocksync):
+        logging.info("+++++++++++++++++++++++++++++++++++++") 
         self._printer = config.get_printer()
         self._clocksync = clocksync
         self._reactor = self._printer.get_reactor()
@@ -629,6 +630,7 @@ class MCU:
         self._ffi_lib.steppersync_set_time(
             self._steppersync, 0., self._mcu_freq)
     def _connect(self):
+        logging.info("1111111111111111111111112222222222") 
         if self.is_fileoutput():
             self._connect_file()
         else:
