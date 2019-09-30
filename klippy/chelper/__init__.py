@@ -165,7 +165,6 @@ def get_ffi():
         srcdir = os.path.dirname(os.path.realpath(__file__))
         logging.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         logging.info(srcdir) 
-        
         check_build_code(srcdir, DEST_LIB, SOURCE_FILES, COMPILE_CMD
                          , OTHER_FILES)
         FFI_main = cffi.FFI()
