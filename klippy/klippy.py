@@ -287,6 +287,7 @@ def main():
         bglogger = queuelogger.setup_bg_logging(options.logfile, debuglevel)
     else:
         logging.basicConfig(level=debuglevel)
+    logging.info("00000000000000000000000000000")
     logging.info("Starting Klippy...")
     start_args['software_version'] = util.get_git_version()
     if bglogger is not None:
