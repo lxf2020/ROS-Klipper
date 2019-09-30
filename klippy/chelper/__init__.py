@@ -163,12 +163,17 @@ def get_ffi():
     global FFI_main, FFI_lib, pyhelper_logging_callback
     if FFI_lib is None:
         srcdir = os.path.dirname(os.path.realpath(__file__))
+        logging.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        logging.info(srcdir) 
+        
         check_build_code(srcdir, DEST_LIB, SOURCE_FILES, COMPILE_CMD
                          , OTHER_FILES)
         FFI_main = cffi.FFI()
         for d in defs_all:
             FFI_main.cdef(d)
         FFI_lib = FFI_main.dlopen(os.path.join(srcdir, DEST_LIB))
+        logging.info(FFI_lib) 
+        logging.info("3333333333333333333333333333")
         # Setup error logging
         def logging_callback(msg):
             logging.error(FFI_main.string(msg))
