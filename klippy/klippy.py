@@ -155,6 +155,7 @@ class Printer:
                 if self.state_message is not message_startup:
                     return
                 x=cb()
+                logging.info("*****************************")
                 logging.info(x)
                 logging.info("uuuuuuuuuuuuuuuuuuuuuuuuuuu") 
         except (self.config_error, pins.error) as e:
