@@ -196,6 +196,7 @@ class Printer:
         logging.info("66666666666666666666666666")
         # Enter main reactor loop
         try:
+            logging.info("mmmmmmmmmmmmmmmmmmmmmmmmmm")
             self.reactor.run()
         except:
             logging.exception("Unhandled exception during run")
