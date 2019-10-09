@@ -196,7 +196,7 @@ class Printer:
         logging.info("66666666666666666666666666")
         # Enter main reactor loop
         try:
-            logging.info("mmmmmmmmmmmmmmmmmmmmmmmmmm")
+            logging.info("mmmmmmmmmmmmmmmmmmmmmmmmmm**")
             self.reactor.run()
             logging.info("9898989898989898989898989898")
         except:
