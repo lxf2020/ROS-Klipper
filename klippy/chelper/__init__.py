@@ -171,6 +171,7 @@ def get_ffi():
         for d in defs_all:
             FFI_main.cdef(d)
         FFI_lib = FFI_main.dlopen(os.path.join(srcdir, DEST_LIB))
+        logging.info("???????????????????????????") 
         logging.info(FFI_lib) 
         logging.info("3333333333333333333333333333")
         # Setup error logging
