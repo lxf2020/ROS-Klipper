@@ -248,7 +248,7 @@ class SelectReactor:
         self._g_dispatch = None
     def run(self):
         if self._pipe_fds is None:
-            self._setup_async_callbacks()       #设置
+            self._setup_async_callbacks()
         self._process = True
         g_next = ReactorGreenlet(run=self._dispatch_loop)
         logging.info(g_next)
