@@ -174,9 +174,9 @@ class SelectReactor:
             func(*args)
     def _setup_async_callbacks(self):
         self._pipe_fds = os.pipe()
-        #logging.info("11111111111-------------")
-        #logging.info(self._pipe_fds)
-        #logging.info("11111111111-------------")
+        logging.info("11111111111-------------")
+        logging.info(self._pipe_fds)
+        logging.info("11111111111-------------")
         util.set_nonblock(self._pipe_fds[0])
         util.set_nonblock(self._pipe_fds[1])
         self.register_fd(self._pipe_fds[0], self._got_pipe_signal)
