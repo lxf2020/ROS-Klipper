@@ -254,6 +254,7 @@ class SelectReactor:
         logging.info(g_next)
         logging.info("9898989898989898989898989898")
         g_next.switch()
+        logging.info("abababababababababababababab")
     def end(self):
         self._process = False
 
@@ -298,7 +299,7 @@ class EPollReactor(SelectReactor):
         self._fds = {}
     # File descriptors
     def register_fd(self, fd, callback):
-        file_handler = ReactorFileHandler(fd, callback)
+        file_handler = ReactorFileHandler(fd, callback
         fds = self._fds.copy()
         fds[fd] = callback
         self._fds = fds
