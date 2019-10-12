@@ -251,8 +251,8 @@ class SelectReactor:
             self._setup_async_callbacks()
         self._process = True
         g_next = ReactorGreenlet(run=self._dispatch_loop)
-        logging.info(g_next)
-        logging.info("9898989898989898989898989898")
+        #logging.info(g_next)
+        #logging.info("9898989898989898989898989898")
         g_next.switch()
     def end(self):
         self._process = False
