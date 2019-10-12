@@ -298,7 +298,7 @@ class EPollReactor(SelectReactor):
         self._fds = {}
     # File descriptors
     def register_fd(self, fd, callback):
-        file_handler = ReactorFileHandler(fd, callback
+        file_handler = ReactorFileHandler(fd, callback)
         fds = self._fds.copy()
         fds[fd] = callback
         self._fds = fds
