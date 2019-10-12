@@ -279,6 +279,7 @@ class PollReactor(SelectReactor):
         self._fds = fds
     # Main loop
     def _dispatch_loop(self):
+        logging.info("mmmmmmmmmmmmmmmmmmmmm+11111111111111111111")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
         eventtime = self.monotonic()
         while self._process:
@@ -313,6 +314,7 @@ class EPollReactor(SelectReactor):
         self._fds = fds
     # Main loop
     def _dispatch_loop(self):
+        logging.info("mmmmmmmmmmmmmmmmmmmmm+22222222222222222222")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
         eventtime = self.monotonic()
         while self._process:
