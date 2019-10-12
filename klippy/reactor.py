@@ -254,7 +254,7 @@ class SelectReactor:
         logging.info(g_next)
         logging.info("9898989898989898989898989898")
         g_next.switch()
-        logging.info("asasasasasasasasasasasasasasas")
+        logging.info("：：：：：：：：：：：：：：：：：：：：：：：：")
     def end(self):
         self._process = False
 
