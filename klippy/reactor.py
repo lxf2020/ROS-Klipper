@@ -286,6 +286,7 @@ class PollReactor(SelectReactor):
             timeout = self._check_timers(eventtime)
             res = self._poll.poll(int(math.ceil(timeout * 1000.)))
             eventtime = self.monotonic()
+            logging.info("aa+11111111111111111111")
             for fd, event in res:
                 self._fds[fd](eventtime)
                 if g_dispatch is not self._g_dispatch:
@@ -293,7 +294,8 @@ class PollReactor(SelectReactor):
                     eventtime = self.monotonic()
                     break
         self._g_dispatch = None
-
+        logging.info("aa+22222222222222222222222")
+        
 class EPollReactor(SelectReactor):
     def __init__(self):
         SelectReactor.__init__(self)
