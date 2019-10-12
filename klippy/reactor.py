@@ -232,7 +232,7 @@ class SelectReactor:
         self._fds.pop(self._fds.index(file_handler))
     # Main loop
     def _dispatch_loop(self):
-        # logging.info("mmmmmmmmm+++++++++++++++++")
+        logging.info("mmmmmmmmm+++++++++++++++++")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
         eventtime = self.monotonic()
         while self._process:
