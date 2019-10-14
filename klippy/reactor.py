@@ -287,6 +287,7 @@ class PollReactor(SelectReactor):
         logging.info(eventtime)
         logging.info("mmmmmmmmmmmmmmmmmmmmm+1111111111111111111aaaaaa")
         while self._process:
+            logging.info("bbb+111111111111111111")
             timeout = self._check_timers(eventtime)
             res = self._poll.poll(int(math.ceil(timeout * 1000.)))
             eventtime = self.monotonic()
