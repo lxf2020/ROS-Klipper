@@ -134,10 +134,13 @@ class SelectReactor:
         g_dispatch = self._g_dispatch
         for t in self._timers:
             waketime = t.waketime
+            logging.info(eventtime)
+            logging.info(waketime)
             if eventtime >= waketime:
                 t.waketime = self.NEVER
-                t.waketime = waketime = t.callback(eventtime)
                 logging.info("fff+111111111111111111")
+                t.waketime = waketime = t.callback(eventtime)
+                
                 if g_dispatch is not self._g_dispatch:
                     self._next_timer = min(self._next_timer, waketime)
                     self._end_greenlet(g_dispatch)
