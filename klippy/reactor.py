@@ -281,6 +281,7 @@ class PollReactor(SelectReactor):
     def _dispatch_loop(self):
         logging.info("mmmmmmmmmmmmmmmmmmmmm+11111111111111111111")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
+        logging.info("mmmmmmmmmmmmmmmmmmmmm+1111111111111111111aaaaaa")
         eventtime = self.monotonic()
         while self._process:
             timeout = self._check_timers(eventtime)
