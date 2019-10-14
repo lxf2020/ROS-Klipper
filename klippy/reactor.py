@@ -125,8 +125,11 @@ class SelectReactor:
         timers.pop(timers.index(timer_handler))
         self._timers = timers
     def _check_timers(self, eventtime):
+        logging.info("ddd+111111111111111111")
         if eventtime < self._next_timer:
+            logging.info("eee+111111111111111111")
             return min(1., max(.001, self._next_timer - eventtime))
+        logging.info("fff+111111111111111111")
         self._next_timer = self.NEVER
         g_dispatch = self._g_dispatch
         for t in self._timers:
