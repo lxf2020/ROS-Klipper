@@ -95,6 +95,7 @@ class SelectReactor:
     def __init__(self):
         # Main code
         self._process = False
+        logging.info("this is reactor initialize------------------")
         self.monotonic = chelper.get_ffi()[1].get_monotonic
         # Timers
         self._timers = []
