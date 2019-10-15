@@ -113,7 +113,7 @@ class SelectReactor:
         #print('conut=', self._timers.len)
         logging.info('.......................................')
         for x in self._timers:
-            logging.info(x.__name__)
+            logging.info(x.name)
     # Timers
     def update_timer(self, timer_handler, waketime):
         timer_handler.waketime = waketime
