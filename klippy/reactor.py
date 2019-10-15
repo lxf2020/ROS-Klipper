@@ -120,6 +120,7 @@ class SelectReactor:
         self._timers = timers
         self._next_timer = min(self._next_timer, waketime)
         logging.info("********111111111111111111*********")
+        logging.info(callback)
         logging.info(self._timers)
         logging.info("********111111111111111111*********")
         return timer_handler
