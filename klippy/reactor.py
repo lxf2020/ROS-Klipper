@@ -47,6 +47,7 @@ class ReactorCallback:
         self.reactor = reactor
         self.timer = reactor.register_timer(self.invoke, waketime)
         self.callback = callback
+        logging.info(callback.__name__)
         self.completion = ReactorCompletion(reactor)
     def invoke(self, eventtime):
         self.reactor.unregister_timer(self.timer)
