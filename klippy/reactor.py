@@ -43,6 +43,7 @@ class ReactorCompletion:
 
 class ReactorCallback:
     def __init__(self, reactor, callback, waketime):
+        logging.info("ggggggggggggggg+????????????????????????????")
         self.reactor = reactor
         self.timer = reactor.register_timer(self.invoke, waketime)
         self.callback = callback
