@@ -5,7 +5,7 @@
 # This file may be distributed under the terms of the GNU GPLv3 license.
 import os, select, math, time, Queue, logging
 import greenlet
-import chelper, util
+import chelper, util 
 
 _NOW = 0.
 _NEVER = 9999999999999999.
@@ -109,6 +109,11 @@ class SelectReactor:
         # Greenlets
         self._g_dispatch = None
         self._greenlets = []
+    def shouall(self):
+        #print('conut=', self._timers.len)
+        logging.info('.......................................')
+        for x in self._timers:
+            logging.info(x)
     # Timers
     def update_timer(self, timer_handler, waketime):
         timer_handler.waketime = waketime
@@ -143,8 +148,9 @@ class SelectReactor:
                 logging.info(self._timers)
                 logging.info(t)
                 logging.info("fff+222222222222222222")
-                #t.waketime = waketime = t.callback(eventtime)
-                t.waketime = t.callback(eventtime)
+                self.shouall()
+                t.waketime = waketime = t.callback(eventtime)
+
                 logging.info("hhh+111111111111111111")
                 if g_dispatch is not self._g_dispatch:
                     self._next_timer = min(self._next_timer, waketime)
