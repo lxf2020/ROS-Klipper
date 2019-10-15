@@ -16,8 +16,9 @@ class ReactorTimer:
         self.callback = callback
         self.waketime = waketime
         self.name = callback.__name__
-        logging.info("ggg+111111111111111111")
+        
         logging.info(self.name)
+        logging.info("ggg+111111111111111111+ggg")
 
 class ReactorCompletion:
     class sentinel: pass
