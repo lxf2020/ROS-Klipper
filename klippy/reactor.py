@@ -109,11 +109,6 @@ class SelectReactor:
         # Greenlets
         self._g_dispatch = None
         self._greenlets = []
-    def shouall(self):
-        #print('conut=', self._timers.len)
-        logging.info('.......................................')
-        for x in self._timers:
-            logging.info(x.name)
     # Timers
     def update_timer(self, timer_handler, waketime):
         timer_handler.waketime = waketime
@@ -124,6 +119,9 @@ class SelectReactor:
         timers.append(timer_handler)
         self._timers = timers
         self._next_timer = min(self._next_timer, waketime)
+        logging.info("********111111111111111111*********")
+        logging.info(self._timers)
+        logging.info("********111111111111111111*********")
         return timer_handler
     def unregister_timer(self, timer_handler):
         timer_handler.waketime = self.NEVER
