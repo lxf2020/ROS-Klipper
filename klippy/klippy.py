@@ -275,6 +275,12 @@ def main():
     debuglevel = logging.INFO
     if options.verbose:
         debuglevel = logging.DEBUG
+    
+    if options.logfile:
+        bglogger = queuelogger.setup_bg_logging(options.logfile, debuglevel)
+    else:
+        logging.basicConfig(level=debuglevel)
+
     if options.debuginput:
         start_args['debuginput'] = options.debuginput
         debuginput = open(options.debuginput, 'rb')
@@ -286,10 +292,7 @@ def main():
     if options.debugoutput:
         start_args['debugoutput'] = options.debugoutput
         start_args.update(options.dictionary)
-    if options.logfile:
-        bglogger = queuelogger.setup_bg_logging(options.logfile, debuglevel)
-    else:
-        logging.basicConfig(level=debuglevel)
+    
     logging.info("00000000000000000000000000000")
     logging.info("Starting Klippy...")
     start_args['software_version'] = util.get_git_version()
