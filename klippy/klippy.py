@@ -51,7 +51,7 @@ class Printer:
     def __init__(self, input_fd, bglogger, start_args):
         self.bglogger = bglogger
         self.start_args = start_args
-        logging.info("bbbbbbbbbbbbbbbbbbbbbbbbb") 
+        logging.info("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb") 
         self.reactor = reactor.Reactor()
         self.reactor.register_callback(self._connect)
         logging.info("tttttttttttttttttttttttttttttttt")

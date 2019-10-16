@@ -27,6 +27,7 @@ def clear_hupcl(fd):
 
 # Support for creating a pseudo-tty for emulating a serial port
 def create_pty(ptyname):
+    logging.info("this create pty-------------------------")
     mfd, sfd = pty.openpty()
     try:
         os.unlink(ptyname)
