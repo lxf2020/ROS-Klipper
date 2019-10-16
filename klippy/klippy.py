@@ -280,6 +280,7 @@ def main():
         debuginput = open(options.debuginput, 'rb')
         input_fd = debuginput.fileno()
     else:
+        logging.info("------------------------create pty-------------------------")
         input_fd = util.create_pty(options.inputtty)
     if options.debugoutput:
         start_args['debugoutput'] = options.debugoutput
