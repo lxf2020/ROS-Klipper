@@ -851,9 +851,10 @@ def add_printer_objects(config):
     logging.info("this is mcu objects----------------33333")
     printer = config.get_printer()
     reactor = printer.get_reactor()   
-    mainsync = clocksync.ClockSync(reactor)
+    mainsync = clocksync.ClockSync(reactor)     #实例化类ClockSync，时钟同步类 
     logging.info("this is clocksync.ClockSync----------------")
     printer.add_object('mcu', MCU(config.getsection('mcu'), mainsync))
+    logging.info("this is mcu.add_object----------------")
     for s in config.get_prefix_sections('mcu '):
         printer.add_object(s.section, MCU(
             s, clocksync.SecondarySync(reactor, mainsync)))
