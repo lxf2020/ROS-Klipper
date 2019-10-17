@@ -130,7 +130,7 @@ class Printer:
         self.objects['configfile'] = pconfig = configfile.PrinterConfig(self)
         config = pconfig.read_main_config()
         logging.info("ddddddddddddddddddddddddddddddddd") 
-        if self.bglogger is not None:
+        #if self.bglogger is not None:
             #pconfig.log_config(config)
         # Create printer components
         for m in [pins, heater, mcu]:
