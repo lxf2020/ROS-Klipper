@@ -121,6 +121,8 @@ class SelectReactor:
         self._next_timer = min(self._next_timer, waketime)
     def register_timer(self, callback, waketime=NEVER):
         timer_handler = ReactorTimer(callback, waketime)
+        logging.info("this time _timers:------------")
+        logging.info(self._timers)
         timers = list(self._timers)
         timers.append(timer_handler)
         self._timers = timers
