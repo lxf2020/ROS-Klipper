@@ -289,4 +289,5 @@ class PrinterHeaters:
         self.turn_off_all_heaters(print_time)
 
 def add_printer_objects(config):
+    logging.info("this is heater objects----------------22222")
     config.get_printer().add_object('heater', PrinterHeaters(config))

@@ -848,6 +848,7 @@ def error_help(msg):
     return ""
 
 def add_printer_objects(config):
+    logging.info("this is mcu objects----------------33333")
     printer = config.get_printer()
     reactor = printer.get_reactor()
     mainsync = clocksync.ClockSync(reactor)
