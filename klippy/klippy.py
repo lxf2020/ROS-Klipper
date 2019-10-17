@@ -136,6 +136,7 @@ class Printer:
         for m in [pins, heater, mcu]:
             logging.info(m)
             m.add_printer_objects(config)
+            logging.info("this m cycle --------------------") 
         logging.info("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") 
         for section_config in config.get_prefix_sections(''):
             self.try_load_module(config, section_config.get_name())
