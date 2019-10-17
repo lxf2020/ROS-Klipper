@@ -449,7 +449,7 @@ class CommandWrapper:
 class MCU:
     error = error
     def __init__(self, config, clocksync):
-        logging.info("+++++++++++++++++++++++++++++++++++++") 
+        logging.info("+++++++++++++++++++++++++++++++++++++123") 
         self._printer = config.get_printer()
         self._clocksync = clocksync
         self._reactor = self._printer.get_reactor()
