@@ -850,10 +850,9 @@ def error_help(msg):
 def add_printer_objects(config):
     logging.info("this is mcu objects----------------33333")
     printer = config.get_printer()
-    logging.info("this is config.get_printer----------------")
-    reactor = printer.get_reactor()
-    logging.info("this is printer.get_reactor----------------")
+    reactor = printer.get_reactor()   
     mainsync = clocksync.ClockSync(reactor)
+    logging.info("this is clocksync.ClockSync----------------")
     printer.add_object('mcu', MCU(config.getsection('mcu'), mainsync))
     for s in config.get_prefix_sections('mcu '):
         printer.add_object(s.section, MCU(
