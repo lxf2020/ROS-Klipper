@@ -162,12 +162,12 @@ class Printer:
             for cb in self.event_handlers.get("klippy:connect", []):  
                 if self.state_message is not message_startup:
                     return
+                logging.info(cb.__name__)
+                logging.info("------------------------------")
                 logging.info(cb)
                 cb()
                 logging.info("==============================")
-                logging.info(cb.__name__)
-                logging.info("------------------------------")
-                
+                             
         except (self.config_error, pins.error) as e:
             logging.exception("Config error")
             self._set_state("%s%s" % (str(e), message_restart)) 
