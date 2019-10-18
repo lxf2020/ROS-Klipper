@@ -551,6 +551,7 @@ class MCU:
             def dummy_estimated_print_time(eventtime):
                 return 0.
             self.estimated_print_time = dummy_estimated_print_time
+        logging.info("================this is mcu._connect_file============== ") 
     def _add_custom(self):
         for line in self._custom.split('\n'):
             line = line.strip()
@@ -630,7 +631,7 @@ class MCU:
         self._ffi_lib.steppersync_set_time(
             self._steppersync, 0., self._mcu_freq)
     def _connect(self):
-        logging.info("1111111111111111111111112222222222") 
+        logging.info("================this is mcu._connect============== ") 
         if self.is_fileoutput():
             self._connect_file()
         else:
