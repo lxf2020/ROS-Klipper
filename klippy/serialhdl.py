@@ -69,6 +69,7 @@ class SerialReader:
         start_time = self.reactor.monotonic()
         while 1:
             connect_time = self.reactor.monotonic()
+            logging.info("================this is serialhdl.connect============== ") 
             if connect_time > start_time + 150.:
                 raise error("Unable to connect")
             try:
