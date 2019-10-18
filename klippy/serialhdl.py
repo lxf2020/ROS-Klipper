@@ -82,7 +82,7 @@ class SerialReader:
                 logging.warn("Unable to open port: %s", e)
                 self.reactor.pause(connect_time + 5.)
                 continue
-             
+            logging.info("================this is serialhdl.connect==============00 ") 
             if self.baud:
                 stk500v2_leave(self.ser, self.reactor)
                 logging.info("================this is serialhdl.connect==============11 ")
