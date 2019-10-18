@@ -139,10 +139,11 @@ class Printer:
             logging.info("this m cycle --------------------") 
         logging.info("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") 
         for section_config in config.get_prefix_sections(''):
-            logging.info(section_config) 
             logging.info("this is section_config ==================") 
-            logging.info(section_config.get_name())
+            logging.info(section_config) 
             logging.info("this is get_name: ==================") 
+            logging.info(section_config.get_name())
+            
             self.try_load_module(config, section_config.get_name())
             logging.info("this is section_config is end +++++++++++++++++++++++++++++++++++++") 
         logging.info("fffffffffffffffffffffffffffffffffff") 
