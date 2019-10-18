@@ -149,8 +149,10 @@ class Printer:
         logging.info("fffffffffffffffffffffffffffffffffff") 
         for m in [toolhead]:
             m.add_printer_objects(config)
+        logging.info("vvvvvvvvvvvvvvvvvvfffffffffffffffff") 
         # Validate that there are no undefined parameters in the config file
         pconfig.check_unused_options(config)
+        logging.info("vvvvvvvvvvvvvvvvvv++++++++++++++++++") 
     def _connect(self, eventtime):
         logging.info("cccccccccccccccccccccccccccccccccc") 
         try:
