@@ -163,7 +163,7 @@ class Printer:
                 if self.state_message is not message_startup:
                     return
                 logging.info("==============================")
-                logging.info(cb)
+                logging.info(cb.__name__)
                 logging.info("------------------------------")
                 x=cb()
                 logging.info("*****************************")
