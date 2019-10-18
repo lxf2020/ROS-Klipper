@@ -162,6 +162,7 @@ class Printer:
             for cb in self.event_handlers.get("klippy:connect", []):  
                 if self.state_message is not message_startup:
                     return
+                logging.info(cb)
                 logging.info("==============================")
                 logging.info(cb.__name__)
                 logging.info("------------------------------")
