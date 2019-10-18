@@ -69,7 +69,7 @@ class SerialReader:
         start_time = self.reactor.monotonic()
         while 1:
             connect_time = self.reactor.monotonic()
-            logging.info("================this is serialhdl.connect============== ") 
+            
             if connect_time > start_time + 150.:
                 raise error("Unable to connect")
             try:
@@ -88,6 +88,7 @@ class SerialReader:
                 self.ser.fileno(), 0)
             self.background_thread = threading.Thread(target=self._bg_thread)
             self.background_thread.start()
+            logging.info("================this is serialhdl.connect============== ") 
             # Obtain and load the data dictionary from the firmware
             try:
                 identify_data = self._get_identify_data(connect_time + 5.)
