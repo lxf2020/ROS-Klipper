@@ -165,10 +165,7 @@ class Printer:
                 logging.info("==============================")
                 logging.info(cb.__name__)
                 logging.info("------------------------------")
-                x=cb()
-                logging.info("*****************************")
-                logging.info(x)
-                logging.info("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuu") 
+                
         except (self.config_error, pins.error) as e:
             logging.exception("Config error")
             self._set_state("%s%s" % (str(e), message_restart)) 
