@@ -74,10 +74,10 @@ class ConfigWrapper:
     def get_prefix_sections(self, prefix):
         logging.info("gggggggggggggggggggggggggggggg") 
         logging.info(prefix) 
-        logging.info(self.fileconfig) 
-        logging.info(self.fileconfig.sections())
+        logging.info(self.fileconfig)  
         logging.info("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh") 
         for s in self.fileconfig.sections()
+            logging.info(self.fileconfig.sections())
             if s.startswith(prefix)        
                 return s
             else:
