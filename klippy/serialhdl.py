@@ -82,14 +82,17 @@ class SerialReader:
                 logging.warn("Unable to open port: %s", e)
                 self.reactor.pause(connect_time + 5.)
                 continue
-            logging.info("================this is serialhdl.connect============== ") 
+             
             if self.baud:
                 stk500v2_leave(self.ser, self.reactor)
+                logging.info("================this is serialhdl.connect==============11 ")
             self.serialqueue = self.ffi_lib.serialqueue_alloc(
                 self.ser.fileno(), 0)
+            logging.info("================this is serialhdl.connect==============22 ")
             self.background_thread = threading.Thread(target=self._bg_thread)
+            logging.info("================this is serialhdl.connect==============33 ")
             self.background_thread.start()
-            
+            logging.info("================this is serialhdl.connect==============44 ")
             # Obtain and load the data dictionary from the firmware
             try:
                 identify_data = self._get_identify_data(connect_time + 5.)
