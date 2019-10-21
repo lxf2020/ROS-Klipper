@@ -218,6 +218,7 @@ class SelectReactor:
             time.sleep(delay)
         return self.monotonic()
     def pause(self, waketime):
+        logging.info("------------------this is stk500v2_leave-------------------")
         g = greenlet.getcurrent()
         if g is not self._g_dispatch:
             if self._g_dispatch is None:
