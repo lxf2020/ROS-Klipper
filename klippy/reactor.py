@@ -220,11 +220,14 @@ class SelectReactor:
     def pause(self, waketime):
         g = greenlet.getcurrent()
         logging.info(g) 
+        logging.info(self._g_dispatch) 
         logging.info("================this is reactor.pause============== ") 
         if g is not self._g_dispatch:
             if self._g_dispatch is None:
+                logging.info("================this is reactor.pause============== 00") 
                 return self._sys_pause(waketime)
             # Switch to _check_timers (via g.timer.callback return)
+            logging.info("================this is reactor.pause============== 11") 
             return self._g_dispatch.switch(waketime)
         # Pausing the dispatch greenlet - prepare a new greenlet to do dispatch
         if self._greenlets:
