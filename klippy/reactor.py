@@ -231,8 +231,10 @@ class SelectReactor:
             return self._g_dispatch.switch(waketime)
         # Pausing the dispatch greenlet - prepare a new greenlet to do dispatch
         if self._greenlets:
+            logging.info("================this is self._greenlets?============== 00") 
             g_next = self._greenlets.pop()
         else:
+            logging.info("================this is self._greenlets?============== 11") 
             g_next = ReactorGreenlet(run=self._dispatch_loop)
         g_next.parent = g.parent
         g.timer = self.register_timer(g.switch, waketime)
