@@ -87,7 +87,6 @@ class SerialReader:
                 logging.info("================this is serialhdl.connect==============11 ")
                 stk500v2_leave(self.ser, self.reactor)            
             self.serialqueue = self.ffi_lib.serialqueue_alloc(
-                logging.info("================this is serialhdl.connect==============11+++ ")
                 self.ser.fileno(), 0)
             logging.info("================this is serialhdl.connect==============22 ")
             self.background_thread = threading.Thread(target=self._bg_thread)
