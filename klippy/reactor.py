@@ -49,6 +49,7 @@ class ReactorCallback:
         self.callback = callback
         logging.info(callback.__name__)
         self.completion = ReactorCompletion(reactor)
+        logging.info("================ reactor.ReactorCallback.init END===================")
     def invoke(self, eventtime):
         self.reactor.unregister_timer(self.timer)
         res = self.callback(eventtime)
