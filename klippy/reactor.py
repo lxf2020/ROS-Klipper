@@ -328,6 +328,9 @@ class PollReactor(SelectReactor):
             for fd, event in res:
                 self._fds[fd](eventtime)
                 if g_dispatch is not self._g_dispatch:
+                    logging.info("=============_end_greenlet?============")
+                    logging.info(g_dispatch)
+                    logging.info(g_dispatch.__name__)
                     self._end_greenlet(g_dispatch)
                     eventtime = self.monotonic()
                     break
