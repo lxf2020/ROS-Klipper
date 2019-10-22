@@ -315,7 +315,7 @@ class PollReactor(SelectReactor):
         logging.info("mmmmmmmmmmmmmmmmmmmmm+11111111111111111111")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
         eventtime = self.monotonic()
-        logging.info(eventtime)
+        logging.info("eventtime:" eventtime)
         logging.info("mmmmmmmmmmmmmmmmmmmmm+1111111111111111111aaaaaa")
         while self._process:
             logging.info("bbb+111111111111111111")
