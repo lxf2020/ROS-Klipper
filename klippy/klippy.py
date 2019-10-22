@@ -308,8 +308,8 @@ def main():
             "Git version: %s" % (repr(start_args['software_version']),),
             "CPU: %s" % (util.get_cpu_info(),),
             "Python: %s" % (repr(sys.version),)])
-        logging.info("====================printer parameter:======================")l
-        ogging.info(versions)
+        logging.info("====================printer parameter:======================")
+        logging.info(versions)
     elif not options.debugoutput:
         logging.warning("No log file specified!"
                         " Severe timing issues may result!")
