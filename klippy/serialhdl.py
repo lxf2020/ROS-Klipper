@@ -241,10 +241,11 @@ def stk500v2_leave(ser, reactor):
     # Request a dummy speed first as this seems to help reset the port
     ser.baudrate = 2400
     ser.read(1)
-    logging.info("================this is stk500v2_leave============== ") 
+    
     # Send stk500v2 leave programmer sequence
     ser.baudrate = 115200
     reactor.pause(reactor.monotonic() + 0.100)
+    logging.info("================this is stk500v2_leave============== ") 
     ser.read(4096)
     ser.write('\x1b\x01\x00\x01\x0e\x11\x04')
     reactor.pause(reactor.monotonic() + 0.050)
