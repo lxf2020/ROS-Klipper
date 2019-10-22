@@ -12,13 +12,13 @@ _NEVER = 9999999999999999.
 
 class ReactorTimer:
     def __init__(self, callback, waketime):
-        logging.info("ggg+111111111111111111")
+        logging.info("==================reactor.ReactorTimer.init===================")
         self.callback = callback
         self.waketime = waketime
         self.name = callback.__name__
         
         logging.info(self.name)
-        logging.info("ggg+111111111111111111+ggg")
+        logging.info("================reactor.ReactorTimer.init END=================")
 
 class ReactorCompletion:
     class sentinel: pass
@@ -43,7 +43,7 @@ class ReactorCompletion:
 
 class ReactorCallback:
     def __init__(self, reactor, callback, waketime):
-        logging.info("ggggggggggggggg+????????????????????????????")
+        logging.info("================ reactor.ReactorCallback.init===================")
         self.reactor = reactor
         self.timer = reactor.register_timer(self.invoke, waketime)
         self.callback = callback
@@ -115,7 +115,7 @@ class SelectReactor:
         # Greenlets
         self._g_dispatch = None
         self._greenlets = []
-        logging.info("===============SelectReactor initialize END================")
+        logging.info("=====================SelectReactor initialize END=====================")
     # Timers
     def update_timer(self, timer_handler, waketime):
         timer_handler.waketime = waketime
