@@ -236,11 +236,12 @@ def stk500v2_leave(ser, reactor):
     
     logging.debug("Starting stk500v2 leave programmer sequence")
     util.clear_hupcl(ser.fileno())
-    logging.info("================this is stk500v2_leave============== ") 
+    
     origbaud = ser.baudrate
     # Request a dummy speed first as this seems to help reset the port
     ser.baudrate = 2400
     ser.read(1)
+    logging.info("================this is stk500v2_leave============== ") 
     # Send stk500v2 leave programmer sequence
     ser.baudrate = 115200
     reactor.pause(reactor.monotonic() + 0.100)
