@@ -640,6 +640,7 @@ class MCU:
                 # Try toggling usb power
                 self._check_restart("enable power")
             try:
+                logging.info("================this is serialhadl.connect============== ") 
                 self._serial.connect()
                 self._clocksync.connect(self._serial)
             except serialhdl.error as e:

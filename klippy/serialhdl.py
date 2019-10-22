@@ -233,7 +233,7 @@ class SerialRetryCommand:
 
 # Attempt to place an AVR stk500v2 style programmer into normal mode
 def stk500v2_leave(ser, reactor):
-    
+    logging.info("================this is stk500v2_leave============== ") 
     logging.debug("Starting stk500v2 leave programmer sequence")
     util.clear_hupcl(ser.fileno())
     origbaud = ser.baudrate
