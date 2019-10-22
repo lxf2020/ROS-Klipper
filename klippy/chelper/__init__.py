@@ -163,8 +163,8 @@ def get_ffi():
     global FFI_main, FFI_lib, pyhelper_logging_callback
     if FFI_lib is None:
         srcdir = os.path.dirname(os.path.realpath(__file__))
-        logging.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        logging.info(srcdir) 
+        logging.info("===================get_ffi()====================")
+        logging.info("srcdir", srcdir) 
         check_build_code(srcdir, DEST_LIB, SOURCE_FILES, COMPILE_CMD
                          , OTHER_FILES)
         FFI_main = cffi.FFI()

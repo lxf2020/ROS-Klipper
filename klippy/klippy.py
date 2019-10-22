@@ -51,7 +51,7 @@ class Printer:
     def __init__(self, input_fd, bglogger, start_args):
         self.bglogger = bglogger
         self.start_args = start_args
-        logging.info("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb") 
+        logging.info("=============self.reactor instantiation===============") 
         self.reactor = reactor.Reactor()
         self.reactor.register_callback(self._connect)
         logging.info("tttttttttttttttttttttttttttttttt")
@@ -300,7 +300,6 @@ def main():
         start_args['debugoutput'] = options.debugoutput
         start_args.update(options.dictionary)
     
-    logging.info("00000000000000000000000000000")
     logging.info("Starting Klippy...")
     start_args['software_version'] = util.get_git_version()
     if bglogger is not None:
@@ -319,7 +318,7 @@ def main():
         if bglogger is not None:
             bglogger.clear_rollover_info()
             bglogger.set_rollover_info('versions', versions)
-        logging.info("aaaaaaaaaaaaaaaaaaaaaaaaa")   
+        logging.info("=============printer instantiation===============")   
         printer = Printer(input_fd, bglogger, start_args)
         res = printer.run()
         if res in ['exit', 'error_exit']:
