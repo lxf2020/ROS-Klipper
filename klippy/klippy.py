@@ -294,7 +294,7 @@ def main():
         input_fd = debuginput.fileno()
         logging.info("???????????????????create pty??????????????????????")
     else:
-        logging.info("------------------------create pty-------------------------")
+        logging.info("options.debuginput is false in main(), ======create pty======")
         input_fd = util.create_pty(options.inputtty)
     if options.debugoutput:
         start_args['debugoutput'] = options.debugoutput
