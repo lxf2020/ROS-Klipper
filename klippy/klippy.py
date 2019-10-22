@@ -51,7 +51,7 @@ class Printer:
     def __init__(self, input_fd, bglogger, start_args):
         self.bglogger = bglogger
         self.start_args = start_args
-        logging.info("=============self.reactor instantiation===============") 
+        logging.info("==================self.reactor instantiation===================") 
         self.reactor = reactor.Reactor()
         self.reactor.register_callback(self._connect)
         logging.info("tttttttttttttttttttttttttttttttt")
@@ -308,7 +308,8 @@ def main():
             "Git version: %s" % (repr(start_args['software_version']),),
             "CPU: %s" % (util.get_cpu_info(),),
             "Python: %s" % (repr(sys.version),)])
-        logging.info(versions)
+        logging.info("====================printer parameter:======================")l
+        ogging.info(versions)
     elif not options.debugoutput:
         logging.warning("No log file specified!"
                         " Severe timing issues may result!")
@@ -317,8 +318,7 @@ def main():
     while 1:
         if bglogger is not None:
             bglogger.clear_rollover_info()
-            bglogger.set_rollover_info('versions', versions)
-        logging.info("=============printer instantiation===============")   
+            bglogger.set_rollover_info('versions', versions)   
         printer = Printer(input_fd, bglogger, start_args)
         res = printer.run()
         if res in ['exit', 'error_exit']:
