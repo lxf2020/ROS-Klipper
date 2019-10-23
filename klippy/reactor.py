@@ -17,7 +17,7 @@ class ReactorTimer:
         self.waketime = waketime
         self.name = callback.__name__
         
-        logging.info(self.name)
+        logging.info("callback name is: "self.name)
         logging.info("================reactor.ReactorTimer.__init__ END=================")
 
 class ReactorCompletion:
@@ -47,7 +47,7 @@ class ReactorCallback:
         self.reactor = reactor
         self.timer = reactor.register_timer(self.invoke, waketime)
         self.callback = callback
-        logging.info(callback.__name__)
+        logging.info("callback name is: ",+callback.__name__)
         self.completion = ReactorCompletion(reactor)
         logging.info("================ reactor.ReactorCallback.__init__ END ===================")
     def invoke(self, eventtime):
@@ -101,9 +101,9 @@ class SelectReactor:
     NOW = _NOW
     NEVER = _NEVER
     def __init__(self):
+        logging.info("=============== reactor.SelectReactor.__init__ ================")
         # Main code
         self._process = False
-        logging.info("=============== reactor.SelectReactor.__init__ ================")
         self.monotonic = chelper.get_ffi()[1].get_monotonic
         # Timers
         self._timers = []
@@ -297,11 +297,11 @@ class SelectReactor:
 
 class PollReactor(SelectReactor):
     def __init__(self):
-        logging.info("==================== reactor.PollReactor.__init__ ====================")
+        logging.info("================== reactor.PollReactor.__init__ ==================")
         SelectReactor.__init__(self)
         self._poll = select.poll()
         self._fds = {}
-        logging.info("================== reactor.PollReactor.__init__ END ==================")
+        logging.info("================ reactor.PollReactor.__init__ END ================")
     # File descriptors
     def register_fd(self, fd, callback):
         file_handler = ReactorFileHandler(fd, callback)
