@@ -49,7 +49,7 @@ class ReactorCallback:
         self.callback = callback
         logging.info("callback name is: ",+callback.__name__)
         self.completion = ReactorCompletion(reactor)
-        logging.info("================ reactor.ReactorCallback.__init__ END ===================")
+        logging.info("============== reactor.ReactorCallback.__init__ END =================")
     def invoke(self, eventtime):
         self.reactor.unregister_timer(self.timer)
         res = self.callback(eventtime)
@@ -124,7 +124,7 @@ class SelectReactor:
     def register_timer(self, callback, waketime=NEVER):
         logging.info("============= reactor.SelectReactor.register_timer =============")
         timer_handler = ReactorTimer(callback, waketime) 
-        logging.info("self._timers is: "self._timers)
+        logging.info("self._timers is: "+self._timers)
         timers = list(self._timers)
         timers.append(timer_handler)
         self._timers = timers
