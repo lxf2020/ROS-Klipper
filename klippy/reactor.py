@@ -122,9 +122,9 @@ class SelectReactor:
         timer_handler.waketime = waketime
         self._next_timer = min(self._next_timer, waketime)
     def register_timer(self, callback, waketime=NEVER):
-        timer_handler = ReactorTimer(callback, waketime)
-        logging.info("this time _timers:------------")
-        logging.info(self._timers)
+        logging.info("============= reactor.SelectReactor.register_timer =============")
+        timer_handler = ReactorTimer(callback, waketime) 
+        logging.info("self._timers is: "self._timers)
         timers = list(self._timers)
         timers.append(timer_handler)
         self._timers = timers
@@ -132,7 +132,7 @@ class SelectReactor:
         logging.info("********111111111111111111*********")
         logging.info(callback)
         logging.info(self._timers)
-        logging.info("********111111111111111111*********")
+        logging.info("=========== reactor.SelectReactor.register_timer END ===========")
         return timer_handler
     def unregister_timer(self, timer_handler):
         timer_handler.waketime = self.NEVER
