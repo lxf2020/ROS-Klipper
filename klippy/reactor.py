@@ -47,7 +47,7 @@ class ReactorCallback:
         self.reactor = reactor
         self.timer = reactor.register_timer(self.invoke, waketime)
         self.callback = callback
-        logging.info("callback name is: ")
+        logging.info("ReactorCallback--callback name is: ")
         logging.info(callback.__name__)
         self.completion = ReactorCompletion(reactor)
         logging.info("============== reactor.ReactorCallback.__init__ END =================")
