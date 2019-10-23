@@ -173,7 +173,7 @@ def get_ffi():
         FFI_lib = FFI_main.dlopen(os.path.join(srcdir, DEST_LIB))
         logging.info("FFI_lib is :")
         logging.info(FFI_lib)  
-        logging.info("FFI_lib is :"+FFI_lib) 
+        logging.info("FFI_lib is :"+String(FFI_lib))
         logging.info("=========================get_ffi() END =========================")
         # Setup error logging
         def logging_callback(msg):
