@@ -116,7 +116,7 @@ class SelectReactor:
         # Greenlets
         self._g_dispatch = None
         self._greenlets = []
-        logging.info("=================== reactor.SelectReactor.__init__ END ===================")
+        logging.info("============== reactor.SelectReactor.__init__ END ==============")
     # Timers
     def update_timer(self, timer_handler, waketime):
         timer_handler.waketime = waketime
@@ -297,11 +297,11 @@ class SelectReactor:
 
 class PollReactor(SelectReactor):
     def __init__(self):
-        logging.info("====================== reactor.PollReactor.__init__ ======================")
+        logging.info("==================== reactor.PollReactor.__init__ ====================")
         SelectReactor.__init__(self)
         self._poll = select.poll()
         self._fds = {}
-        logging.info("====================== reactor.PollReactor.__init__ END ======================")
+        logging.info("================== reactor.PollReactor.__init__ END ==================")
     # File descriptors
     def register_fd(self, fd, callback):
         file_handler = ReactorFileHandler(fd, callback)
