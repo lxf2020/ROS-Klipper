@@ -134,12 +134,13 @@ class Printer:
             pconfig.log_config(config)
         # Create printer components
         for m in [pins, heater, mcu]:
+            logging.info("[pins, heater, mcu] -> m: ")
             logging.info(m)
             m.add_printer_objects(config)
             logging.info("this m cycle --------------------") 
-        logging.info("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") 
+        
         for section_config in config.get_prefix_sections(''):
-            logging.info("this is section_config ==================") 
+            logging.info("config.get_prefix_sections('') -> section_config: ") 
             logging.info(section_config) 
             logging.info("this is get_name: ==================") 
             logging.info(section_config.get_name())

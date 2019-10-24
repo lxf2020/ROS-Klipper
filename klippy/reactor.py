@@ -160,7 +160,7 @@ class SelectReactor:
                 logging.info("self._timers is: ")
                 logging.info(self._timers)
                 logging.info("t is: ")
-                logging.info(t.__name__)
+                logging.info(t)
                 t.waketime = waketime = t.callback(eventtime)
                 logging.info("t.waketime is: ")
                 logging.info(t.waketime)
