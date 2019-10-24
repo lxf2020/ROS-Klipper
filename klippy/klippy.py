@@ -155,7 +155,7 @@ class Printer:
         pconfig.check_unused_options(config)
         logging.info("====================== printer._read_config-[Printer] END =======================")
     def _connect(self, eventtime):
-        logging.info("====================== printer._connect-[Printer] START =======================")
+        logging.info("==================== printer._connect-[Printer] START =====================")
         try:
             self._read_config()
             logging.info(self.event_handlers)
@@ -196,7 +196,7 @@ class Printer:
             logging.exception("Unhandled exception during ready callback")
             self.invoke_shutdown("Internal error during ready callback: %s" % (
                 str(e),))
-        logging.info("====================== printer._connect-[Printer] START =======================")
+        logging.info("==================== printer._connect-[Printer] START =====================")
     def run(self):
         logging.info("================== printer.run()-[Printer] START ====================")
         systime = time.time()
