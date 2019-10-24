@@ -449,7 +449,8 @@ class CommandWrapper:
 class MCU:
     error = error
     def __init__(self, config, clocksync):
-        logging.info("this is MCU Initialize----------------------")
+        logging.info("  ")
+        logging.info("======================== MCU.__init__ START =========================")
         self._printer = config.get_printer()
         self._clocksync = clocksync
         self._reactor = self._printer.get_reactor()
@@ -499,6 +500,8 @@ class MCU:
         self._mcu_tick_avg = 0.
         self._mcu_tick_stddev = 0.
         self._mcu_tick_awake = 0.
+        logging.info("========================= MCU.__init__ END ==========================")
+        logging.info("  ")
     # Serial callbacks
     def _handle_mcu_stats(self, params):
         count = params['count']
@@ -855,7 +858,7 @@ def add_printer_objects(config):
     printer = config.get_printer()
     reactor = printer.get_reactor()   
     mainsync = clocksync.ClockSync(reactor)   #mainsync
-    logging.info("this is clocksync.ClockSync----------------")
+
     printer.add_object('mcu', MCU(config.getsection('mcu'), mainsync))
     logging.info("this is mcu.add_object----------------")
     for s in config.get_prefix_sections('mcu '):
