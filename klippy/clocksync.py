@@ -11,6 +11,8 @@ TRANSMIT_EXTRA = .001
 
 class ClockSync:
     def __init__(self, reactor):
+        
+        logging.info("==================== mainsync.ClockSync.__init__ START =====================")
         self.reactor = reactor
         self.serial = None
         self.get_clock_timer = reactor.register_timer(self._get_clock_event)
@@ -27,6 +29,7 @@ class ClockSync:
         self.clock_avg = self.clock_covariance = 0.
         self.prediction_variance = 0.
         self.last_prediction_time = 0.
+        logging.info("==================== mainsync.ClockSync.__init__ END =====================")
     def connect(self, serial):
         self.serial = serial
         self.mcu_freq = serial.msgparser.get_constant_float('CLOCK_FREQ')
