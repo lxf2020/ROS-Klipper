@@ -196,14 +196,13 @@ class Printer:
             self.invoke_shutdown("Internal error during ready callback: %s" % (
                 str(e),))
     def run(self):
+        logging.info("==================== printer.run() START ======================")
         systime = time.time()
         monotime = self.reactor.monotonic()
         logging.info("Start printer at %s (%.1f %.1f)",
                      time.asctime(time.localtime(systime)), systime, monotime)
-        logging.info("66666666666666666666666666")
         # Enter main reactor loop
         try:
-            logging.info("mmmmmmmmmmmmmmmmmmmmmmmmmm**")
             self.reactor.run()
         except:
             logging.exception("Unhandled exception during run")
@@ -217,6 +216,7 @@ class Printer:
             self.send_event("klippy:disconnect")
         except:
             logging.exception("Unhandled exception during post run")
+        logging.info("==================== printer.run() END ======================")
         return run_result
     def invoke_shutdown(self, msg):
         if self.is_shutdown:

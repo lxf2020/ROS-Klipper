@@ -285,15 +285,15 @@ class SelectReactor:
                     break
         self._g_dispatch = None
     def run(self):
+        logging.info("=============== reactor.run()-[SelectReactor] START ================")
         if self._pipe_fds is None:
             self._setup_async_callbacks()
         self._process = True
-        logging.info("[[[[[[[[[[[[[[[[[[[[[[[[[[[")
         g_next = ReactorGreenlet(run=self._dispatch_loop)
         logging.info(g_next)
-        logging.info("9898989898989898989898989898")
+        logging.info("========================= call switch() ============================")
         g_next.switch()
-        logging.info("assssssasasasasasasasasasasas")
+        logging.info("================ reactor.run()-[SelectReactor] END =================")
     def end(self):
         self._process = False
 
