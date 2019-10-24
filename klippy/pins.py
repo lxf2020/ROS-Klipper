@@ -270,5 +270,6 @@ class PrinterPins:
         self.pin_resolvers[chip_name] = PinResolver()
 
 def add_printer_objects(config):
-    logging.info("this is pin objects----------------11111")
+    logging.info("====================== add_printer_objects-(pins.py) START =======================")
     config.get_printer().add_object('pins', PrinterPins())
+    logging.info("====================== add_printer_objects-(pins.py) END =======================")
