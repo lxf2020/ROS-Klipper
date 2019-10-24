@@ -43,14 +43,14 @@ class ReactorCompletion:
 
 class ReactorCallback:
     def __init__(self, reactor, callback, waketime):
-        logging.info("================ reactor.ReactorCallback.__init__ ===================")
+        logging.info("=============== reactor.ReactorCallback.__init__ ==================")
         self.reactor = reactor
         self.timer = reactor.register_timer(self.invoke, waketime)
         self.callback = callback
         logging.info("ReactorCallback--callback name is: ")
         logging.info(callback.__name__)
         self.completion = ReactorCompletion(reactor)
-        logging.info("============== reactor.ReactorCallback.__init__ END =================")
+        logging.info("============= reactor.ReactorCallback.__init__ END ================")
     def invoke(self, eventtime):
         self.reactor.unregister_timer(self.timer)
         res = self.callback(eventtime)
@@ -142,7 +142,7 @@ class SelectReactor:
         timers.pop(timers.index(timer_handler))
         self._timers = timers
     def _check_timers(self, eventtime):
-        logging.info("ddd+111111111111111111")
+        logging.info("================= _check_timers()-[SelectReactor] START =================")
         if eventtime < self._next_timer:
             logging.info("eee+111111111111111111")
             return min(1., max(.001, self._next_timer - eventtime))
@@ -151,17 +151,19 @@ class SelectReactor:
         g_dispatch = self._g_dispatch
         for t in self._timers:
             waketime = t.waketime
+            logging.info("eventtime is: ")
             logging.info(eventtime)
+            logging.info("waketime is: ")
             logging.info(waketime)
             if eventtime >= waketime:
                 t.waketime = self.NEVER
-                logging.info("fff+111111111111111111")
+                logging.info("self._timers is: ")
                 logging.info(self._timers)
+                logging.info("t is: ")
                 logging.info(t)
-                logging.info("fff+222222222222222222")
                 t.waketime = waketime = t.callback(eventtime)
-
-                logging.info("hhh+111111111111111111")
+                logging.info("t.waketime is: ")
+                logging.info(t.waketime)
                 if g_dispatch is not self._g_dispatch:
                     self._next_timer = min(self._next_timer, waketime)
                     self._end_greenlet(g_dispatch)
@@ -169,6 +171,7 @@ class SelectReactor:
             self._next_timer = min(self._next_timer, waketime)
         if eventtime >= self._next_timer:
             return 0.
+        logging.info("================= _check_timers()-[SelectReactor] END =================")
         return min(1., max(.001, self._next_timer - self.monotonic()))
     # Callbacks and Completions
     def completion(self):
@@ -202,13 +205,15 @@ class SelectReactor:
                 break
             func(*args)
     def _setup_async_callbacks(self):
+        logging.info("================== _setup_async_callbacks()-[SelectReactor] START ====================")
         self._pipe_fds = os.pipe()
-        logging.info("11111111111-------------")
+        logging.info("self._pipe_fds: ")
         logging.info(self._pipe_fds)
-        logging.info("11111111111-------------")
+        
         util.set_nonblock(self._pipe_fds[0])
         util.set_nonblock(self._pipe_fds[1])
         self.register_fd(self._pipe_fds[0], self._got_pipe_signal)
+        logging.info("================== _setup_async_callbacks()-[SelectReactor] END ====================")
     def __del__(self):
         if self._pipe_fds is not None:
             os.close(self._pipe_fds[0])
@@ -290,6 +295,7 @@ class SelectReactor:
             self._setup_async_callbacks()
         self._process = True
         g_next = ReactorGreenlet(run=self._dispatch_loop)
+        logging.info("g_next : ")
         logging.info(g_next)
         logging.info("========================= call switch() ============================")
         g_next.switch()
@@ -299,11 +305,11 @@ class SelectReactor:
 
 class PollReactor(SelectReactor):
     def __init__(self):
-        logging.info("================== reactor.PollReactor.__init__ ==================")
+        logging.info("================= reactor.PollReactor.__init__ =================")
         SelectReactor.__init__(self)
         self._poll = select.poll()
         self._fds = {}
-        logging.info("================ reactor.PollReactor.__init__ END ================")
+        logging.info("=============== reactor.PollReactor.__init__ END ===============")
     # File descriptors
     def register_fd(self, fd, callback):
         file_handler = ReactorFileHandler(fd, callback)
@@ -319,13 +325,14 @@ class PollReactor(SelectReactor):
         self._fds = fds
     # Main loop
     def _dispatch_loop(self):
-        logging.info("====================== reactor.PollReactor._dispatch_loop ======================")
+        logging.info("================ reactor.PollReactor._dispatch_loop =================")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
         eventtime = self.monotonic()
         #logging.info("eventtime:", eventtime)
-        logging.info("mmmmmmmmmmmmmmmmmmmmm+1111111111111111111aaaaaa")
+        conut = 0
         while self._process:
-            logging.info("bbb+111111111111111111")
+            conut = conut+1
+            logging.info("_dispatch_loop while conut is :"+str(conut))
             timeout = self._check_timers(eventtime)
             logging.info("ccc+111111111111111111")
             res = self._poll.poll(int(math.ceil(timeout * 1000.)))

@@ -60,7 +60,7 @@ class Printer:
         self.event_handlers = {}
         gc = gcode.GCodeParser(self, input_fd)
         self.objects = collections.OrderedDict({'gcode': gc})
-        logging.info("================== klippy.Printer.__init__ END ===================")
+        logging.info("================ klippy.Printer.__init__ END =================")
     def get_start_args(self):
         return self.start_args
     def get_reactor(self):
@@ -196,7 +196,7 @@ class Printer:
             self.invoke_shutdown("Internal error during ready callback: %s" % (
                 str(e),))
     def run(self):
-        logging.info("==================== printer.run() START ======================")
+        logging.info("================== printer.run()-[Printer] START ====================")
         systime = time.time()
         monotime = self.reactor.monotonic()
         logging.info("Start printer at %s (%.1f %.1f)",
@@ -216,7 +216,7 @@ class Printer:
             self.send_event("klippy:disconnect")
         except:
             logging.exception("Unhandled exception during post run")
-        logging.info("==================== printer.run() END ======================")
+        logging.info("================== printer.run()-[Printer] END ====================")
         return run_result
     def invoke_shutdown(self, msg):
         if self.is_shutdown:
