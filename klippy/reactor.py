@@ -13,13 +13,13 @@ _NEVER = 9999999999999999.
 class ReactorTimer:
     def __init__(self, callback, waketime):
         logging.info("  ")
-        logging.info("==================reactor.ReactorTimer.__init__===================")
+        logging.info("==================== reactor.ReactorTimer.__init__ =====================")
         self.callback = callback
         self.waketime = waketime
         self.name = callback.__name__
         
         logging.info("callback name is: "+self.name)
-        logging.info("================reactor.ReactorTimer.__init__ END=================")
+        logging.info("================== reactor.ReactorTimer.__init__ END ===================")
         logging.info("  ")
 class ReactorCompletion:
     class sentinel: pass
@@ -232,17 +232,18 @@ class SelectReactor:
             time.sleep(delay)
         return self.monotonic()
     def pause(self, waketime):
-        logging.info("====================== reactor.SelectReactor.pause ======================")
+        logging.info("  ")
+        logging.info("====================== reactor.pause()-[SelectReactor] START ======================")
         g = greenlet.getcurrent()
         logging.info(g) 
         logging.info(self._g_dispatch) 
         logging.info("================this is reactor.pause============== ") 
         if g is not self._g_dispatch:
             if self._g_dispatch is None:
-                logging.info("================this is reactor.pause============== 00") 
+                logging.info("======================= reactor.pause()-[SelectReactor] END 00=======================")
                 return self._sys_pause(waketime)
             # Switch to _check_timers (via g.timer.callback return)
-            logging.info("================this is reactor.pause============== 11") 
+            logging.info("======================= reactor.pause()-[SelectReactor] END 11=======================")
             return self._g_dispatch.switch(waketime)
         # Pausing the dispatch greenlet - prepare a new greenlet to do dispatch
         if self._greenlets:
@@ -256,7 +257,7 @@ class SelectReactor:
         self._next_timer = self.NOW
         # Switch to _dispatch_loop (via _end_greenlet or direct)
         eventtime = g_next.switch()
-        logging.info("====================== reactor.SelectReactor.pause END ======================")
+        logging.info("======================= reactor.pause()-[SelectReactor] END =======================")
         # This greenlet activated from g.timer.callback (via _check_timers)
         return eventtime
     def _end_greenlet(self, g_old):
