@@ -65,7 +65,8 @@ class SerialReader:
                 raise error("Timeout during identify")
     def connect(self):
         # Initial connection
-        logging.info("Starting serial connect")
+        logging.info("  ")
+        logging.info("===================== connect()-[SerialReader] START ======================")
         start_time = self.reactor.monotonic()
         while 1:
             connect_time = self.reactor.monotonic()
@@ -116,6 +117,8 @@ class SerialReader:
         if receive_window is not None:
             self.ffi_lib.serialqueue_set_receive_window(
                 self.serialqueue, receive_window)
+        logging.info("===================== connect()-[SerialReader] END ======================")
+        logging.info("  ")
     def connect_file(self, debugoutput, dictionary, pace=False):
         self.ser = debugoutput
         self.msgparser.process_identify(dictionary, decompress=False)

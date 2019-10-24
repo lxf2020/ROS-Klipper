@@ -535,6 +535,7 @@ class MCU:
         self._reactor.pause(self._reactor.monotonic() + 2.000)
         raise error("Attempt MCU '%s' restart failed" % (self._name,))
     def _connect_file(self, pace=False):
+        logging.info("======================= _connect_file()-[MCU] START ========================")
         # In a debugging mode.  Open debug output file and read data dictionary
         start_args = self._printer.get_start_args()
         if self._name == 'mcu':
@@ -554,7 +555,7 @@ class MCU:
             def dummy_estimated_print_time(eventtime):
                 return 0.
             self.estimated_print_time = dummy_estimated_print_time
-        logging.info("================this is mcu._connect_file============== ") 
+        logging.info("======================== _connect_file()-[MCU] END ==========================")
     def _add_custom(self):
         for line in self._custom.split('\n'):
             line = line.strip()
@@ -634,16 +635,18 @@ class MCU:
         self._ffi_lib.steppersync_set_time(
             self._steppersync, 0., self._mcu_freq)
     def _connect(self):
-        logging.info("================this is mcu._connect============== ") 
+        logging.info("  ")
+        logging.info("======================= _connect()-[MCU] START ========================")
         if self.is_fileoutput():
+            logging.info("****************** _connect_file() ******************")
             self._connect_file()
         else:
             if (self._restart_method == 'rpi_usb'
                 and not os.path.exists(self._serialport)):
                 # Try toggling usb power
                 self._check_restart("enable power")
-            try:
-                logging.info("================this is serialhadl.connect============== ") 
+            try: 
+                logging.info("************* self._serial.connect() ************")
                 self._serial.connect()
                 self._clocksync.connect(self._serial)
             except serialhdl.error as e:
@@ -681,6 +684,8 @@ class MCU:
         logging.info(move_msg)
         log_info.append(move_msg)
         self._printer.set_rollover_info(name, "\n".join(log_info), log=False)
+        logging.info("========================= _connect()-[MCU] END ==========================")
+        logging.info("  ")
     # Config creation helpers
     def setup_pin(self, pin_type, pin_params):
         pcs = {'stepper': MCU_stepper, 'endstop': MCU_endstop,

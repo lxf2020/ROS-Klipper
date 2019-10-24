@@ -141,7 +141,7 @@ class Printer:
         logging.info("====================== try_load_module-[Printer] END =======================")
         logging.info("  ") 
     def _read_config(self):
-        logging.info("====================== printer._read_config-[Printer] START =======================")
+        logging.info("==================== printer._read_config-[Printer] START =====================")
         self.objects['configfile'] = pconfig = configfile.PrinterConfig(self)
         config = pconfig.read_main_config()
         if self.bglogger is not None:
@@ -162,25 +162,28 @@ class Printer:
             self.try_load_module(config, section_config.get_name())
             
         for m in [toolhead]:
+            logging.info("  ") 
             m.add_printer_objects(config)
-        logging.info("vvvvvvvvvvvvvvvvvvfffffffffffffffff") 
         # Validate that there are no undefined parameters in the config file
         pconfig.check_unused_options(config)
-        logging.info("====================== printer._read_config-[Printer] END =======================")
+        logging.info("==================== printer._read_config-[Printer] END =====================")
     def _connect(self, eventtime):
         logging.info("==================== printer._connect-[Printer] START =====================")
         try:
             self._read_config()
+            logging.info("self.event_handlers :")
             logging.info(self.event_handlers)
-            logging.info("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy") 
+
             for cb in self.event_handlers.get("klippy:connect", []):  
                 if self.state_message is not message_startup:
                     return
+                logging.info("cb.__name__: ")
                 logging.info(cb.__name__)
-                logging.info("------------------------------")
+                logging.info("  ")
+                logging.info("cb: ")
                 logging.info(cb)
                 cb()
-                logging.info("==============================")
+                logging.info("-----------------------cb for cycle-------------------------")
                              
         except (self.config_error, pins.error) as e:
             logging.exception("Config error")
