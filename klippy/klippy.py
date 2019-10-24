@@ -160,8 +160,7 @@ class Printer:
             logging.info(section_config.get_name())
             logging.info("  ") 
             self.try_load_module(config, section_config.get_name())
-            logging.info("this is section_config is end +++++++++++++++++++++++++++++++++++++") 
-        logging.info("fffffffffffffffffffffffffffffffffff") 
+            
         for m in [toolhead]:
             m.add_printer_objects(config)
         logging.info("vvvvvvvvvvvvvvvvvvfffffffffffffffff") 

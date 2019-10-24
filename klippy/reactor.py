@@ -12,6 +12,7 @@ _NEVER = 9999999999999999.
 
 class ReactorTimer:
     def __init__(self, callback, waketime):
+        logging.info("  ")
         logging.info("==================reactor.ReactorTimer.__init__===================")
         self.callback = callback
         self.waketime = waketime
@@ -19,7 +20,7 @@ class ReactorTimer:
         
         logging.info("callback name is: "+self.name)
         logging.info("================reactor.ReactorTimer.__init__ END=================")
-
+        logging.info("  ")
 class ReactorCompletion:
     class sentinel: pass
     def __init__(self, reactor):
@@ -123,6 +124,7 @@ class SelectReactor:
         timer_handler.waketime = waketime
         self._next_timer = min(self._next_timer, waketime)
     def register_timer(self, callback, waketime=NEVER):
+        logging.info("  ")
         logging.info("============= reactor.SelectReactor.register_timer() START =============")
         logging.info("callback is: ")
         logging.info(callback)
@@ -137,6 +139,7 @@ class SelectReactor:
         logging.info("self._timers is: ")
         logging.info(self._timers)
         logging.info("=========== reactor.SelectReactor.register_timer() END ===========")
+        logging.info("  ")
         return timer_handler
     def unregister_timer(self, timer_handler):
         timer_handler.waketime = self.NEVER
