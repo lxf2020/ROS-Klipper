@@ -99,25 +99,32 @@ class Printer:
         if self.bglogger is not None:
             self.bglogger.set_rollover_info(name, info)
     def try_load_module(self, config, section):
+        logging.info("====================== try_load_module-[Printer] START =======================")
+        logging.info("self.objects is: ")
         logging.info(self.objects)
-        logging.info("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+
         if section in self.objects:
-            logging.info("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
+            logging.info("Returns the position of 11111111111111111111111111111")
+            logging.info("====================== try_load_module-[Printer] END =======================")
             return self.objects[section]
         module_parts = section.split()
+        logging.info("module_parts is: ")
         logging.info(module_parts)
-        logging.info("lllllllllllllllllllllllllllllll")
+
         module_name = module_parts[0]
         py_name = os.path.join(os.path.dirname(__file__),
                                'extras', module_name + '.py')
+        logging.info("py_name is: ")
         logging.info(py_name)
         py_dirname = os.path.join(os.path.dirname(__file__),
                                   'extras', module_name, '__init__.py')
+        logging.info("py_dirname is: ")
         logging.info(py_dirname)
         if not os.path.exists(py_name) and not os.path.exists(py_dirname):
-            logging.info("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+            logging.info("Returns the position of 22222222222222222222222222222")
+            logging.info("====================== try_load_module-[Printer] END =======================")
             return None
-        logging.info("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+
         mod = importlib.import_module('extras.' + module_name)
         init_func = 'load_config'
         if len(module_parts) > 1:
@@ -125,7 +132,10 @@ class Printer:
         init_func = getattr(mod, init_func, None)
         if init_func is not None:
             self.objects[section] = init_func(config.getsection(section))
+            logging.info("Returns the position of 3333333333333333333333333333")
+            logging.info("====================== try_load_module-[Printer] END =======================")
             return self.objects[section]
+        logging.info("====================== try_load_module-[Printer] END =======================")
     def _read_config(self):
         logging.info("====================== printer._read_config-[Printer] START =======================")
         self.objects['configfile'] = pconfig = configfile.PrinterConfig(self)
