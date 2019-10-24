@@ -106,6 +106,7 @@ class Printer:
         if section in self.objects:
             logging.info("Returns the position of 11111111111111111111111111111")
             logging.info("====================== try_load_module-[Printer] END =======================")
+            logging.info("  ") 
             return self.objects[section]
         module_parts = section.split()
         logging.info("module_parts is: ")
@@ -123,6 +124,7 @@ class Printer:
         if not os.path.exists(py_name) and not os.path.exists(py_dirname):
             logging.info("Returns the position of 22222222222222222222222222222")
             logging.info("====================== try_load_module-[Printer] END =======================")
+            logging.info("  ") 
             return None
 
         mod = importlib.import_module('extras.' + module_name)
@@ -134,8 +136,10 @@ class Printer:
             self.objects[section] = init_func(config.getsection(section))
             logging.info("Returns the position of 3333333333333333333333333333")
             logging.info("====================== try_load_module-[Printer] END =======================")
+            logging.info("  ") 
             return self.objects[section]
         logging.info("====================== try_load_module-[Printer] END =======================")
+        logging.info("  ") 
     def _read_config(self):
         logging.info("====================== printer._read_config-[Printer] START =======================")
         self.objects['configfile'] = pconfig = configfile.PrinterConfig(self)
