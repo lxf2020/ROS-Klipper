@@ -850,6 +850,7 @@ def error_help(msg):
     return ""
 
 def add_printer_objects(config):
+    logging.info("  ")
     logging.info("====================== add_printer_objects-(mcu.py) START =======================")
     printer = config.get_printer()
     reactor = printer.get_reactor()   
@@ -862,7 +863,7 @@ def add_printer_objects(config):
             s, clocksync.SecondarySync(reactor, mainsync)))
  
     logging.info("====================== add_printer_objects-(mcu.py) END =======================")
-
+    logging.info("  ")
 def get_printer_mcu(printer, name):
     if name == 'mcu':
         return printer.lookup_object(name)
