@@ -160,7 +160,7 @@ class SelectReactor:
                 logging.info("self._timers is: ")
                 logging.info(self._timers)
                 logging.info("t is: ")
-                logging.info(t)
+                logging.info(t.__name__)
                 t.waketime = waketime = t.callback(eventtime)
                 logging.info("t.waketime is: ")
                 logging.info(t.waketime)
@@ -205,7 +205,7 @@ class SelectReactor:
                 break
             func(*args)
     def _setup_async_callbacks(self):
-        logging.info("================== _setup_async_callbacks()-[SelectReactor] START ====================")
+        logging.info("========== _setup_async_callbacks()-[SelectReactor] START ============")
         self._pipe_fds = os.pipe()
         logging.info("self._pipe_fds: ")
         logging.info(self._pipe_fds)
@@ -213,7 +213,7 @@ class SelectReactor:
         util.set_nonblock(self._pipe_fds[0])
         util.set_nonblock(self._pipe_fds[1])
         self.register_fd(self._pipe_fds[0], self._got_pipe_signal)
-        logging.info("================== _setup_async_callbacks()-[SelectReactor] END ====================")
+        logging.info("============ _setup_async_callbacks()-[SelectReactor] END =============")
     def __del__(self):
         if self._pipe_fds is not None:
             os.close(self._pipe_fds[0])

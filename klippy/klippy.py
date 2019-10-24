@@ -127,9 +127,9 @@ class Printer:
             self.objects[section] = init_func(config.getsection(section))
             return self.objects[section]
     def _read_config(self):
+        logging.info("====================== printer._read_config-[Printer] START =======================")
         self.objects['configfile'] = pconfig = configfile.PrinterConfig(self)
         config = pconfig.read_main_config()
-        logging.info("ddddddddddddddddddddddddddddddddd") 
         if self.bglogger is not None:
             pconfig.log_config(config)
         # Create printer components
@@ -152,9 +152,9 @@ class Printer:
         logging.info("vvvvvvvvvvvvvvvvvvfffffffffffffffff") 
         # Validate that there are no undefined parameters in the config file
         pconfig.check_unused_options(config)
-        logging.info("vvvvvvvvvvvvvvvvvv++++++++++++++++++") 
+        logging.info("====================== printer._read_config-[Printer] END =======================")
     def _connect(self, eventtime):
-        logging.info("cccccccccccccccccccccccccccccccccc") 
+        logging.info("====================== printer._connect-[Printer] START =======================")
         try:
             self._read_config()
             logging.info(self.event_handlers)
@@ -195,6 +195,7 @@ class Printer:
             logging.exception("Unhandled exception during ready callback")
             self.invoke_shutdown("Internal error during ready callback: %s" % (
                 str(e),))
+        logging.info("====================== printer._connect-[Printer] START =======================")
     def run(self):
         logging.info("================== printer.run()-[Printer] START ====================")
         systime = time.time()
