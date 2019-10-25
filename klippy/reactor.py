@@ -156,7 +156,7 @@ class SelectReactor:
         
         self._next_timer = self.NEVER
         g_dispatch = self._g_dispatch
-     
+        logging.info("  ")
         for t in self._timers:           
             logging.info("self._timers is: ")
             logging.info(self._timers)
@@ -264,6 +264,7 @@ class SelectReactor:
         g_next.parent = g.parent
         g.timer = self.register_timer(g.switch, waketime)
         self._next_timer = self.NOW
+        logging.info("============================= call "+g_next.switch().__name__+" =============================")
         # Switch to _dispatch_loop (via _end_greenlet or direct)
         eventtime = g_next.switch()
         logging.info("======================= reactor.pause()-[SelectReactor] END =======================")
