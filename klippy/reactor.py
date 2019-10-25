@@ -157,7 +157,7 @@ class SelectReactor:
         self._next_timer = self.NEVER
         g_dispatch = self._g_dispatch
         logging.info("self._timers is: ")
-        logging.info(self._timers)
+        logging.info(self._timers.__name__)
         logging.info("  ")
         
         for t in self._timers:
@@ -313,7 +313,7 @@ class SelectReactor:
             self._setup_async_callbacks()
         self._process = True
         g_next = ReactorGreenlet(run=self._dispatch_loop)
-        logging.info("g_next : ")
+        logging.info("g_next = ReactorGreenlet(run=self._dispatch_loop), g_next: ")
         logging.info(g_next)
         logging.info("========================= call switch() ============================")
         g_next.switch()
