@@ -104,7 +104,8 @@ class SerialReader:
                 self.disconnect()
                 continue
             break
-        logging.info("111111111333333333")
+        logging.info("   ")
+        logging.info("================================ Message Parser START ==================================")
         msgparser = msgproto.MessageParser()
         msgparser.process_identify(identify_data)
         self.msgparser = msgparser
@@ -227,25 +228,27 @@ class SerialRetryCommand:
         first_query_time = query_time = max(self.min_query_time, minsystime)
         count = 0
         while 1:           
+            logging.info("===================== this loop is get_response()-[SerialRetryCommand]=======================")
             count = count +1
             logging.info("loop count is: "+str(count))
             for cmd in cmds:
                 self.serial.raw_send(cmd, minclock, minclock, cmd_queue)
             logging.info("*********################")
             time1 = time.time()
-            logging.info("The current time: %s (%.1f)",
-                     time.asctime(time.localtime(time1)), time1)
+            logging.info("The current time: %s ",
+                     time.asctime(time.localtime(time1)))
             params = self.completion.wait(query_time + self.RETRY_TIME)
             logging.info("*********&&&&&&&&&&&&&&&&")
             if params is not None:
                 self.serial.register_response(None, self.name, self.oid)
+                logging.info("===================== this loop is get_response()-[SerialRetryCommand] END 00=======================")
                 return params
             
             query_time = self.serial.reactor.monotonic()
             if query_time > first_query_time + self.TIMEOUT_TIME:
                 self.serial.register_response(None, self.name, self.oid)
                 raise error("Timeout on wait for '%s' response" % (self.name,))
-
+        logging.info("===================== this loop is get_response()-[SerialRetryCommand] END =======================")
 # Attempt to place an AVR stk500v2 style programmer into normal mode
 def stk500v2_leave(ser, reactor):
     logging.info("======================= stk500v2_leave()- START ========================")
