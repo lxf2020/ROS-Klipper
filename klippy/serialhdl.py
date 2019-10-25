@@ -151,6 +151,7 @@ class SerialReader:
         return self.default_cmd_queue
     # Serial response callbacks
     def register_response(self, callback, name, oid=None):
+        logging.info("*********&&&&&&&&&&&&&&&&")
         with self.lock:
             if callback is None:
                 del self.handlers[name, oid]
@@ -166,7 +167,6 @@ class SerialReader:
     def send_with_response(self, msg, response):
         cmd = self.msgparser.create_command(msg)
         src = SerialRetryCommand(self, response)
-        logging.info("*********&&&&&&&&&&&&&&&&")
         return src.get_response([cmd], self.default_cmd_queue)
     def alloc_command_queue(self):
         return self.ffi_main.gc(self.ffi_lib.serialqueue_alloc_commandqueue(),
@@ -227,6 +227,7 @@ class SerialRetryCommand:
     def get_response(self, cmds, cmd_queue, minclock=0, minsystime=0.):
         first_query_time = query_time = max(self.min_query_time, minsystime)
         while 1:
+            logging.info("lkjhgffgddfdghhfghf")
             for cmd in cmds:
                 self.serial.raw_send(cmd, minclock, minclock, cmd_queue)
             params = self.completion.wait(query_time + self.RETRY_TIME)
