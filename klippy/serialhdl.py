@@ -109,6 +109,7 @@ class SerialReader:
         self.register_response(self.handle_unknown, '#unknown')
         # Setup baud adjust
         mcu_baud = msgparser.get_constant_float('SERIAL_BAUD', None)
+        logging.info("121421423545657575")
         if mcu_baud is not None:
             baud_adjust = self.BITS_PER_BYTE / mcu_baud
             self.ffi_lib.serialqueue_set_baud_adjust(
@@ -248,7 +249,6 @@ def stk500v2_leave(ser, reactor):
     # Send stk500v2 leave programmer sequence
     ser.baudrate = 115200
     reactor.pause(reactor.monotonic() + 0.100)
-    logging.info("123456")
     ser.read(4096)
     ser.write('\x1b\x01\x00\x01\x0e\x11\x04')
     reactor.pause(reactor.monotonic() + 0.050)
