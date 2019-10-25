@@ -248,6 +248,7 @@ def stk500v2_leave(ser, reactor):
     # Send stk500v2 leave programmer sequence
     ser.baudrate = 115200
     reactor.pause(reactor.monotonic() + 0.100)
+    logging.info("123456")
     ser.read(4096)
     ser.write('\x1b\x01\x00\x01\x0e\x11\x04')
     reactor.pause(reactor.monotonic() + 0.050)
