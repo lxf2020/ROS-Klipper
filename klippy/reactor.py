@@ -19,7 +19,7 @@ class ReactorTimer:
         self.name = callback.__name__
         
         logging.info("callback name is: "+self.name)
-        logging.info("callback is: "+str(callback)
+        logging.info("callback is: "+str(callback))
         logging.info("================== reactor.ReactorTimer.__init__ END ===================")
         logging.info("  ")
 class ReactorCompletion:
