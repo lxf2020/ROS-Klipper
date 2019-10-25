@@ -163,8 +163,8 @@ class SerialReader:
         cmd = self.msgparser.create_command(msg)
         self.raw_send(cmd, minclock, reqclock, self.default_cmd_queue)
     def send_with_response(self, msg, response):
-        logging.info("*********&&&&&&&&&&&&&&&&")
         cmd = self.msgparser.create_command(msg)
+        logging.info("*********&&&&&&&&&&&&&&&&")
         src = SerialRetryCommand(self, response)
         return src.get_response([cmd], self.default_cmd_queue)
     def alloc_command_queue(self):
