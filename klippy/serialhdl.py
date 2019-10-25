@@ -51,6 +51,7 @@ class SerialReader:
                 logging.exception("Exception in serial callback")
     def _get_identify_data(self, timeout):
         # Query the "data dictionary" from the micro-controller
+        logging.info("*********&&&&&&&&&&&&&&&&")
         identify_data = ""
         while 1:
             msg = "identify offset=%d count=%d" % (len(identify_data), 40)
