@@ -103,6 +103,7 @@ class SerialReader:
                 self.disconnect()
                 continue
             break
+        logging.info("111111111333333333")
         msgparser = msgproto.MessageParser()
         msgparser.process_identify(identify_data)
         self.msgparser = msgparser
