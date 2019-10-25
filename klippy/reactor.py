@@ -266,6 +266,7 @@ class SelectReactor:
         logging.info("12345678")
         self._next_timer = self.NOW
         logging.info("============================ call "+g_next.switch().__name__+" =============================")
+        logging.info("123456789")
         # Switch to _dispatch_loop (via _end_greenlet or direct)
         eventtime = g_next.switch()
         logging.info("======================= reactor.pause()-[SelectReactor] END =======================")
