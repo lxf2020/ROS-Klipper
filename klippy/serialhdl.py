@@ -229,11 +229,13 @@ class SerialRetryCommand:
             logging.info("lkjhgffgddfdghhfghf")
             for cmd in cmds:
                 self.serial.raw_send(cmd, minclock, minclock, cmd_queue)
+            logging.info("*********################")
             params = self.completion.wait(query_time + self.RETRY_TIME)
+            logging.info("*********&&&&&&&&&&&&&&&&")
             if params is not None:
                 self.serial.register_response(None, self.name, self.oid)
                 return params
-            logging.info("*********&&&&&&&&&&&&&&&&")
+            
             query_time = self.serial.reactor.monotonic()
             if query_time > first_query_time + self.TIMEOUT_TIME:
                 self.serial.register_response(None, self.name, self.oid)
