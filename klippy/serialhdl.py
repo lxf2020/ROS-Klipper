@@ -236,7 +236,7 @@ class SerialRetryCommand:
 
 # Attempt to place an AVR stk500v2 style programmer into normal mode
 def stk500v2_leave(ser, reactor):
-    
+    logging.info("==================== stk500v2_leave()- START =====================")
     logging.debug("Starting stk500v2 leave programmer sequence")
     util.clear_hupcl(ser.fileno())
     
@@ -248,14 +248,13 @@ def stk500v2_leave(ser, reactor):
     # Send stk500v2 leave programmer sequence
     ser.baudrate = 115200
     reactor.pause(reactor.monotonic() + 0.100)
-    logging.info("================this is stk500v2_leave============== ") 
     ser.read(4096)
     ser.write('\x1b\x01\x00\x01\x0e\x11\x04')
     reactor.pause(reactor.monotonic() + 0.050)
     res = ser.read(4096)
     logging.debug("Got %s from stk500v2", repr(res))
     ser.baudrate = origbaud
-
+    logging.info("==================== stk500v2_leave() END =====================")
 # Attempt an arduino style reset on a serial port
 def arduino_reset(serialport, reactor):
     # First try opening the port at a different baud

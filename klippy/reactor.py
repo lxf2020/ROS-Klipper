@@ -154,12 +154,17 @@ class SelectReactor:
         
         self._next_timer = self.NEVER
         g_dispatch = self._g_dispatch
+        logging.info("self._timers is: ")
+        logging.info(self._timers)
+        logging.info("  ")
+        
         for t in self._timers:
             waketime = t.waketime
             logging.info("eventtime is: ")
             logging.info(eventtime)
             logging.info("waketime is: ")
             logging.info(waketime)
+            logging.info("  ")
             if eventtime >= waketime:
                 t.waketime = self.NEVER
                 logging.info("self._timers is: ")
@@ -175,6 +180,7 @@ class SelectReactor:
                     return 0.
             self._next_timer = min(self._next_timer, waketime)
         if eventtime >= self._next_timer:
+            logging.info("================ _check_timers()-[SelectReactor] END 00================")
             return 0.
         logging.info("================= _check_timers()-[SelectReactor] END =================")
         return min(1., max(.001, self._next_timer - self.monotonic()))
@@ -249,10 +255,10 @@ class SelectReactor:
             return self._g_dispatch.switch(waketime)
         # Pausing the dispatch greenlet - prepare a new greenlet to do dispatch
         if self._greenlets:
-            logging.info("================this is self._greenlets?============== 00") 
+            logging.info("================ self._greenlets is true ============== 00") 
             g_next = self._greenlets.pop()
         else:
-            logging.info("================this is self._greenlets?============== 11") 
+            logging.info("================ self._greenlets is false ============== 11") 
             g_next = ReactorGreenlet(run=self._dispatch_loop)
         g_next.parent = g.parent
         g.timer = self.register_timer(g.switch, waketime)
@@ -283,7 +289,7 @@ class SelectReactor:
         self._fds.pop(self._fds.index(file_handler))
     # Main loop
     def _dispatch_loop(self):
-        logging.info("mmmmmmmmmmmmmmmmmmmmm+++++++++++++++++")
+        logging.info("================ _dispatch_loop()-[SelectReactor] START =================")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
         eventtime = self.monotonic()
         while self._process:
@@ -297,6 +303,7 @@ class SelectReactor:
                     eventtime = self.monotonic()
                     break
         self._g_dispatch = None
+        logging.info("================ _dispatch_loop()-[SelectReactor] END =================")
     def run(self):
         logging.info("=============== reactor.run()-[SelectReactor] START ================")
         if self._pipe_fds is None:
@@ -333,7 +340,7 @@ class PollReactor(SelectReactor):
         self._fds = fds
     # Main loop
     def _dispatch_loop(self):
-        logging.info("================ reactor.PollReactor._dispatch_loop =================")
+        logging.info("============== reactor.PollReactor._dispatch_loop START ===============")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
         eventtime = self.monotonic()
         #logging.info("eventtime:", eventtime)
@@ -342,11 +349,12 @@ class PollReactor(SelectReactor):
             conut = conut+1
             logging.info("_dispatch_loop while conut is :"+str(conut))
             timeout = self._check_timers(eventtime)
-            logging.info("ccc+111111111111111111")
             res = self._poll.poll(int(math.ceil(timeout * 1000.)))
-            
+            logging.info("in reactor.PollReactor._dispatch_loop loop.............")
             eventtime = self.monotonic()
-            logging.info("aa+11111111111111111111")
+            logging.info("eventtime is :")
+            logging.info(eventtime)
+
             for fd, event in res:
                 self._fds[fd](eventtime)
                 if g_dispatch is not self._g_dispatch:
@@ -378,7 +386,7 @@ class EPollReactor(SelectReactor):
         self._fds = fds
     # Main loop
     def _dispatch_loop(self):
-        logging.info("mmmmmmmmmmmmmmmmmmmmm+222222222222222222222222")
+        logging.info("================ _dispatch_loop()-[EPollReactor] START =================")
         self._g_dispatch = g_dispatch = greenlet.getcurrent()
         eventtime = self.monotonic()
         while self._process:
@@ -392,7 +400,7 @@ class EPollReactor(SelectReactor):
                     eventtime = self.monotonic()
                     break
         self._g_dispatch = None
-
+        logging.info("================= _dispatch_loop()-[EPollReactor] END ==================")
 # Use the poll based reactor if it is available
 try:
     select.poll
