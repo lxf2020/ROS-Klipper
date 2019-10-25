@@ -226,7 +226,7 @@ class SerialRetryCommand:
     def get_response(self, cmds, cmd_queue, minclock=0, minsystime=0.):
         first_query_time = query_time = max(self.min_query_time, minsystime)
         while 1:
-            logging.info("lkjhgffgddfdghhfghf")
+            
             for cmd in cmds:
                 self.serial.raw_send(cmd, minclock, minclock, cmd_queue)
             logging.info("*********################")
