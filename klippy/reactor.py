@@ -265,7 +265,7 @@ class SelectReactor:
         g.timer = self.register_timer(g.switch, waketime)
         logging.info("12345678")
         self._next_timer = self.NOW
-        #logging.info("============================ call "+g_next.switch().__name__+" =============================")
+        logging.info("====================== call "+g_next.switch().__name__+" ========================")
         logging.info("123456789___")
         # Switch to _dispatch_loop (via _end_greenlet or direct)
         eventtime = g_next.switch()
