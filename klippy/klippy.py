@@ -214,6 +214,7 @@ class Printer:
                 str(e),))
         logging.info("==================== printer._connect-[Printer] START =====================")
     def run(self):
+        logging.info("  ")
         logging.info("================== printer.run()-[Printer] START ====================")
         systime = time.time()
         monotime = self.reactor.monotonic()
