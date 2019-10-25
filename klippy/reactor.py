@@ -160,7 +160,7 @@ class SelectReactor:
         for t in self._timers:           
             logging.info("self._timers is: ")
             logging.info(self._timers)
-            logging.info("t is: ",+t)
+            logging.info("t is: "+t)
             #logging.info(t)
             logging.info("  ")
             waketime = t.waketime
