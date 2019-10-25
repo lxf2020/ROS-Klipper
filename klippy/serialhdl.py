@@ -51,7 +51,6 @@ class SerialReader:
                 logging.exception("Exception in serial callback")
     def _get_identify_data(self, timeout):
         # Query the "data dictionary" from the micro-controller
-        logging.info("*********&&&&&&&&&&&&&&&&")
         identify_data = ""
         while 1:
             msg = "identify offset=%d count=%d" % (len(identify_data), 40)
@@ -164,6 +163,7 @@ class SerialReader:
         cmd = self.msgparser.create_command(msg)
         self.raw_send(cmd, minclock, reqclock, self.default_cmd_queue)
     def send_with_response(self, msg, response):
+        logging.info("*********&&&&&&&&&&&&&&&&")
         cmd = self.msgparser.create_command(msg)
         src = SerialRetryCommand(self, response)
         return src.get_response([cmd], self.default_cmd_queue)
