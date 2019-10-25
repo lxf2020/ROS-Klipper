@@ -164,8 +164,8 @@ class SerialReader:
         self.raw_send(cmd, minclock, reqclock, self.default_cmd_queue)
     def send_with_response(self, msg, response):
         cmd = self.msgparser.create_command(msg)
-        logging.info("*********&&&&&&&&&&&&&&&&")
         src = SerialRetryCommand(self, response)
+        logging.info("*********&&&&&&&&&&&&&&&&")
         return src.get_response([cmd], self.default_cmd_queue)
     def alloc_command_queue(self):
         return self.ffi_main.gc(self.ffi_lib.serialqueue_alloc_commandqueue(),
