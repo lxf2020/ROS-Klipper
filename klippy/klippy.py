@@ -171,16 +171,17 @@ class Printer:
         logging.info("==================== printer._connect-[Printer] START =====================")
         try:
             self._read_config()
+            logging.info("  ")
             logging.info("self.event_handlers :")
             logging.info(self.event_handlers)
 
             for cb in self.event_handlers.get("klippy:connect", []):  
                 if self.state_message is not message_startup:
                     return
-                logging.info("cb.__name__: ")
+                logging.info("function cb() name is: ")
                 logging.info(cb.__name__)
                 logging.info("  ")
-                logging.info("cb: ")
+                logging.info("cb(): ")
                 logging.info(cb)
                 cb()
                 logging.info("-----------------------cb for cycle-------------------------")

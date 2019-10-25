@@ -127,7 +127,8 @@ class SelectReactor:
         logging.info("  ")
         logging.info("============= reactor.SelectReactor.register_timer() START =============")
         logging.info("callback is: ")
-        logging.info(callback)
+        #logging.info(callback)
+        logging.info(callback.__name__)
         timer_handler = ReactorTimer(callback, waketime) 
         
         logging.info("self._timers is: ")
