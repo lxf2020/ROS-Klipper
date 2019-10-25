@@ -151,7 +151,6 @@ class SerialReader:
         return self.default_cmd_queue
     # Serial response callbacks
     def register_response(self, callback, name, oid=None):
-        logging.info("*********&&&&&&&&&&&&&&&&")
         with self.lock:
             if callback is None:
                 del self.handlers[name, oid]
@@ -234,6 +233,7 @@ class SerialRetryCommand:
             if params is not None:
                 self.serial.register_response(None, self.name, self.oid)
                 return params
+            logging.info("*********&&&&&&&&&&&&&&&&")
             query_time = self.serial.reactor.monotonic()
             if query_time > first_query_time + self.TIMEOUT_TIME:
                 self.serial.register_response(None, self.name, self.oid)
