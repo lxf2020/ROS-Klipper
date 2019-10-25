@@ -160,7 +160,12 @@ class SelectReactor:
         logging.info(self._timers)
         logging.info("  ")
         
-        for t in self._timers:
+        for t in self._timers:           
+            logging.info("self._timers is: ")
+            logging.info(self._timers)
+            logging.info("t is: ")
+            logging.info(t)
+
             waketime = t.waketime
             logging.info("eventtime is: ")
             logging.info(eventtime)
@@ -168,12 +173,8 @@ class SelectReactor:
             logging.info(waketime)
             logging.info("  ")
             if eventtime >= waketime:
-                t.waketime = self.NEVER
-                logging.info("self._timers is: ")
-                logging.info(self._timers)
-                logging.info("t is: ")
-                logging.info(t)
-                logging.info("========================= call "+t.callback.__name__+"==========================")
+                t.waketime = self.NEVER               
+                logging.info("============================= call "+t.callback.__name__+" =============================")
                 t.waketime = waketime = t.callback(eventtime)
                 logging.info("t.waketime is: ")
                 logging.info(t.waketime)
