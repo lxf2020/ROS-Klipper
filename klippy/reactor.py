@@ -37,7 +37,7 @@ class ReactorCompletion:
     def wait(self, waketime=_NEVER, waketime_result=None):
         if self.result is self.sentinel:
             self.waiting = greenlet.getcurrent()
-            logging.info("=========================== reactor.pause()-(reactor.py) is run ===========================")
+            logging.info("======================= wait-[ReactorCompletion] call reactor.pause() =======================")
             self.reactor.pause(waketime)
             self.waiting = None
             if self.result is self.sentinel:

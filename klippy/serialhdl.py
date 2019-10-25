@@ -225,11 +225,16 @@ class SerialRetryCommand:
             self.serial.reactor.async_complete(self.completion, params)
     def get_response(self, cmds, cmd_queue, minclock=0, minsystime=0.):
         first_query_time = query_time = max(self.min_query_time, minsystime)
-        while 1:
-            
+        count = 0
+        while 1:           
+            count = count +1
+            logging.info("loop count is: "+str(count))
             for cmd in cmds:
                 self.serial.raw_send(cmd, minclock, minclock, cmd_queue)
             logging.info("*********################")
+            time1 = time.time()
+            logging.info("The current time: %s (%.1f)",
+                     time.asctime(time.localtime(time1)), time1)
             params = self.completion.wait(query_time + self.RETRY_TIME)
             logging.info("*********&&&&&&&&&&&&&&&&")
             if params is not None:
