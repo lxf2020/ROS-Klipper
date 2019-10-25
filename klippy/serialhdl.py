@@ -55,7 +55,8 @@ class SerialReader:
         while 1:
             msg = "identify offset=%d count=%d" % (len(identify_data), 40)
             params = self.send_with_response(msg, 'identify_response')
-            
+            logging.info("params is: ")
+            logging.info(params)
             if params['offset'] == len(identify_data):
                 msgdata = params['data']
                 if not msgdata:
@@ -228,7 +229,7 @@ class SerialRetryCommand:
         first_query_time = query_time = max(self.min_query_time, minsystime)
         count = 0
         while 1:           
-            logging.info("===================== this loop is get_response()-[SerialRetryCommand]=======================")
+            logging.info("===================== this loop is get_response()-[SerialRetryCommand] START =======================")
             count = count +1
             logging.info("loop count is: "+str(count))
             for cmd in cmds:
