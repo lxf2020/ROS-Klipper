@@ -55,7 +55,7 @@ class SerialReader:
         while 1:
             msg = "identify offset=%d count=%d" % (len(identify_data), 40)
             params = self.send_with_response(msg, 'identify_response')
-            logging.info("*********&&&&&&&&&&&&&&&&")
+            
             if params['offset'] == len(identify_data):
                 msgdata = params['data']
                 if not msgdata:
@@ -166,6 +166,7 @@ class SerialReader:
     def send_with_response(self, msg, response):
         cmd = self.msgparser.create_command(msg)
         src = SerialRetryCommand(self, response)
+        logging.info("*********&&&&&&&&&&&&&&&&")
         return src.get_response([cmd], self.default_cmd_queue)
     def alloc_command_queue(self):
         return self.ffi_main.gc(self.ffi_lib.serialqueue_alloc_commandqueue(),
