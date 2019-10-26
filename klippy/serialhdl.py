@@ -234,12 +234,12 @@ class SerialRetryCommand:
             logging.info("loop count is: "+str(count))
             for cmd in cmds:
                 self.serial.raw_send(cmd, minclock, minclock, cmd_queue)
-            logging.info("*********################")
+            logging.info("send cmd over ..........................")          
+            params = self.completion.wait(query_time + self.RETRY_TIME)
+            logging.info("*********&&&&&&&&&&&&&&&&")
             time1 = time.time()
             logging.info("The current time: %s ",
                      time.asctime(time.localtime(time1)))
-            params = self.completion.wait(query_time + self.RETRY_TIME)
-            logging.info("*********&&&&&&&&&&&&&&&&")
             if params is not None:
                 self.serial.register_response(None, self.name, self.oid)
                 logging.info("===================== this loop is get_response()-[SerialRetryCommand] END 00=======================")

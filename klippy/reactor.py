@@ -243,12 +243,13 @@ class SelectReactor:
         logging.info("  ")
         logging.info("====================== reactor.pause()-[SelectReactor] START ======================")
         g = greenlet.getcurrent()
-        logging.info("greenlet.getcurrent() :") 
+        logging.info("g :") 
         logging.info(g) 
         logging.info("self._g_dispatch :") 
         logging.info(self._g_dispatch) 
-        logging.info("================this is reactor.pause============== ") 
+        
         if g is not self._g_dispatch:
+            logging.info("================ g is not self._g_dispatch is true ============== ") 
             if self._g_dispatch is None:
                 logging.info("======================= reactor.pause()-[SelectReactor] END 00=======================")
                 return self._sys_pause(waketime)
