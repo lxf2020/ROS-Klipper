@@ -244,7 +244,7 @@ class SelectReactor:
         logging.info("====================== reactor.pause()-[SelectReactor] START ======================")
         g = greenlet.getcurrent()
         logging.info("g :") 
-        logging.info(g.msg) 
+        logging.info(g) 
         logging.info("self._g_dispatch :") 
         logging.info(self._g_dispatch) 
         
