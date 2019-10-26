@@ -244,9 +244,9 @@ class SelectReactor:
         logging.info("====================== reactor.pause()-[SelectReactor] START ======================")
         g = greenlet.getcurrent()
         logging.info("g :") 
-        logging.info(g.__name__) 
+        logging.info(g.msg) 
         logging.info("self._g_dispatch :") 
-        logging.info(self._g_dispatch.__name__) 
+        logging.info(self._g_dispatch) 
         
         if g is not self._g_dispatch:
             logging.info("================ g is not self._g_dispatch is true ============== ") 
