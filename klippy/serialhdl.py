@@ -52,8 +52,11 @@ class SerialReader:
     def _get_identify_data(self, timeout):
         # Query the "data dictionary" from the micro-controller
         identify_data = ""
+        count = 0
         while 1:
+            count = count +1
             logging.info("+++++++++++++++++++++++++++++++++++ _get_identify_data loop start +++++++++++++++++++++++++++++++++++")
+            logging.info("_get_identify_data loop count is :"+str(count))
             msg = "identify offset=%d count=%d" % (len(identify_data), 40)
             params = self.send_with_response(msg, 'identify_response')
             logging.info("params is: ")
@@ -69,7 +72,9 @@ class SerialReader:
                     return identify_data
                 identify_data += msgdata
             if self.reactor.monotonic() > timeout:
+                logging.info("----------------------------- self.reactor.monotonic() > timeout: --------------------------------------")
                 raise error("Timeout during identify")
+                logging.info("----------------------------- self.reactor.monotonic() > timeout: .error back--------------------------------------")
     def connect(self):
         # Initial connection
         logging.info("  ")
