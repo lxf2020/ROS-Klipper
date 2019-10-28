@@ -241,7 +241,7 @@ class SerialRetryCommand:
         while 1:           
             logging.info("===================== this loop is get_response()-[SerialRetryCommand] START =======================")
             count = count +1
-            logging.info("loop count is: "+str(count))
+            logging.info("get_response() loop count is: "+str(count))
             for cmd in cmds:
                 logging.info("cmd is: "+str(cmd))
                 self.serial.raw_send(cmd, minclock, minclock, cmd_queue)
