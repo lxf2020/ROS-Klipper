@@ -233,6 +233,7 @@ class SerialRetryCommand:
             count = count +1
             logging.info("loop count is: "+str(count))
             for cmd in cmds:
+                logging.info("cmd is: "+cmd)
                 self.serial.raw_send(cmd, minclock, minclock, cmd_queue)
             logging.info("send cmd over ..........................")          
             params = self.completion.wait(query_time + self.RETRY_TIME)
