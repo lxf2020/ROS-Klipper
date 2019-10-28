@@ -58,6 +58,7 @@ class SerialReader:
             logging.info("params is: ")
             logging.info(params)
             if params['offset'] == len(identify_data):
+                logging.info("+++++++++++++++++++++++++++++++++++ get params +++++++++++++++++++++++++++++++++++")
                 msgdata = params['data']
                 if not msgdata:
                     # Done
