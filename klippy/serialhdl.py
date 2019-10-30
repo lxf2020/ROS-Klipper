@@ -123,7 +123,7 @@ class SerialReader:
         self.register_response(self.handle_unknown, '#unknown')
         # Setup baud adjust
         mcu_baud = msgparser.get_constant_float('SERIAL_BAUD', None)
-        logging.info("121421423545657575")
+        
         if mcu_baud is not None:
             baud_adjust = self.BITS_PER_BYTE / mcu_baud
             self.ffi_lib.serialqueue_set_baud_adjust(
