@@ -129,10 +129,10 @@ class SelectReactor:
         self._next_timer = min(self._next_timer, waketime)
     def register_timer(self, callback, waketime=NEVER):
         logging.info("  ")
-        logging.info("============= reactor.SelectReactor.register_timer() START =============")
-        logging.info("callback name is: "+callback.__name__)
+        logging.info("============= reactor.register_timer()-[SelectReactor] START =============")
         logging.info("callback is: "+str(callback))
-        
+        logging.info("callback name is: "+callback.__name__+"()")
+          
         timer_handler = ReactorTimer(callback, waketime) 
         
         logging.info("self._timers is: ")
@@ -143,7 +143,7 @@ class SelectReactor:
         self._next_timer = min(self._next_timer, waketime)
         logging.info("self._timers is: ")
         logging.info(self._timers)
-        logging.info("=========== reactor.SelectReactor.register_timer() END ===========")
+        logging.info("=========== reactor.register_timer()-[SelectReactor] END ===========")
         logging.info("  ")
         return timer_handler
     def unregister_timer(self, timer_handler):
