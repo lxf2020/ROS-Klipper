@@ -155,6 +155,7 @@ class SelectReactor:
         timers.pop(timers.index(timer_handler))
         self._timers = timers
     def _check_timers(self, eventtime):
+        logging.info("")
         logging.info("================= _check_timers()-[SelectReactor] START =================")
         if eventtime < self._next_timer:
             logging.info("eee+111111111111111111")
@@ -162,6 +163,8 @@ class SelectReactor:
         
         self._next_timer = self.NEVER
         g_dispatch = self._g_dispatch
+        logging.info("  ")
+        logging.info("self._g_dispatch"+self._g_dispatch)
         logging.info("  ")
         for t in self._timers:           
             logging.info("self._timers is: ")
@@ -317,7 +320,7 @@ class SelectReactor:
         self._g_dispatch = None
         logging.info("================ _dispatch_loop()-[SelectReactor] END =================")
     def run(self):
-        logging.info("=============== reactor.run()-[SelectReactor] START ================")
+        logging.info("================ reactor.run()-[SelectReactor] START =================")
         if self._pipe_fds is None:
             self._setup_async_callbacks()
         self._process = True
@@ -328,7 +331,7 @@ class SelectReactor:
         logging.info("")
         g_next.switch()
         
-        logging.info("================ reactor.run()-[SelectReactor] END =================")
+        logging.info("================= reactor.run()-[SelectReactor] END ==================")
     def end(self):
         self._process = False
 
@@ -362,7 +365,7 @@ class PollReactor(SelectReactor):
         while self._process:
             conut = conut+1
             logging.info("  ")
-            logging.info("************************** PollReactor._dispatch_loop while conut is :"+str(conut)+" ******************************")
+            logging.info("********************** PollReactor._dispatch_loop while conut is :"+str(conut)+" **************************")
             timeout = self._check_timers(eventtime)
             res = self._poll.poll(int(math.ceil(timeout * 1000.)))
             logging.info("in reactor.PollReactor._dispatch_loop loop.............")
