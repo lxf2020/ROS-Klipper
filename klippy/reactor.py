@@ -194,6 +194,7 @@ class SelectReactor:
         return rcb.completion
     # Asynchronous (from another thread) callbacks and completions
     def register_async_callback(self, callback, waketime=NOW):
+        logging.info("121314141414")
         self._async_queue.put_nowait(
             (ReactorCallback, (self, callback, waketime)))
         try:
