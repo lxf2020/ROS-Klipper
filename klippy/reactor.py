@@ -137,12 +137,15 @@ class SelectReactor:
         
         logging.info("self._timers is: ")
         logging.info(self._timers)
+
         timers = list(self._timers)
         timers.append(timer_handler)
         self._timers = timers
         self._next_timer = min(self._next_timer, waketime)
+
         logging.info("self._timers is: ")
-        logging.info(self._timers)
+        logging.info(self._timers.__name__)
+
         logging.info("=========== reactor.register_timer()-[SelectReactor] END ===========")
         logging.info("  ")
         return timer_handler
