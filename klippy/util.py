@@ -27,7 +27,7 @@ def clear_hupcl(fd):
 
 # Support for creating a pseudo-tty for emulating a serial port
 def create_pty(ptyname):
-    logging.info("=======================create pty=========================")
+    logging.info("=================== create_pty()-(util.py) START =====================")
     mfd, sfd = pty.openpty()
     try:
         os.unlink(ptyname)
@@ -40,6 +40,7 @@ def create_pty(ptyname):
     old = termios.tcgetattr(mfd)
     old[3] = old[3] & ~termios.ECHO
     termios.tcsetattr(mfd, termios.TCSADRAIN, old)
+    logging.info("==================== create_pty()-(util.py) END ======================")
     return mfd
 
 def get_cpu_info():
