@@ -330,6 +330,7 @@ def main():
         logging.info("==================== printer parameter: ======================")
         logging.info(versions)
         logging.info("==============================================================")
+        logging.info("")
     elif not options.debugoutput:
         logging.warning("No log file specified!"
                         " Severe timing issues may result!")
