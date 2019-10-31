@@ -112,7 +112,7 @@ class SelectReactor:
         self._process = False
         self.monotonic = chelper.get_ffi()[1].get_monotonic
         # Timers
-        self._timers = [“as”,45]
+        self._timers = []
         self._next_timer = self.NEVER
         # Callbacks
         self._pipe_fds = None
@@ -135,6 +135,7 @@ class SelectReactor:
           
         timer_handler = ReactorTimer(callback, waketime) 
         
+        self._timers = ["asd","qwe",1,2]
         logging.info("self._timers is: ")
         logging.info(self._timers)
 
