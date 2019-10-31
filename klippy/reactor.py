@@ -57,9 +57,11 @@ class ReactorCallback:
         logging.info("============= reactor.ReactorCallback.__init__ END ================")
         logging.info("")
     def invoke(self, eventtime):
+        logging.info("================= invoke()-[ReactorCallback] START ================")
         self.reactor.unregister_timer(self.timer)
         res = self.callback(eventtime)
         self.completion.complete(res)
+        logging.info("================== invoke()-[ReactorCallback] END =================")
         return self.reactor.NEVER
 
 class ReactorFileHandler:
