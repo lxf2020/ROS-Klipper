@@ -322,10 +322,12 @@ class SelectReactor:
             self._setup_async_callbacks()
         self._process = True
         g_next = ReactorGreenlet(run=self._dispatch_loop)
-        logging.info("g_next = ReactorGreenlet(run=self._dispatch_loop), g_next: ")
+        logging.info("ReactorGreenlet(run=self._dispatch_loop), g_next.run: ")
         logging.info(g_next.run)
         logging.info("========================= call switch() ============================")
+        logging.info("")
         g_next.switch()
+        
         logging.info("================ reactor.run()-[SelectReactor] END =================")
     def end(self):
         self._process = False
