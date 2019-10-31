@@ -46,6 +46,7 @@ class ReactorCompletion:
 
 class ReactorCallback:
     def __init__(self, reactor, callback, waketime):
+        logging.info("")
         logging.info("=============== reactor.ReactorCallback.__init__ ==================")
         self.reactor = reactor
         self.timer = reactor.register_timer(self.invoke, waketime)
@@ -54,6 +55,7 @@ class ReactorCallback:
         logging.info(callback.__name__)
         self.completion = ReactorCompletion(reactor)
         logging.info("============= reactor.ReactorCallback.__init__ END ================")
+        logging.info("")
     def invoke(self, eventtime):
         self.reactor.unregister_timer(self.timer)
         res = self.callback(eventtime)
@@ -190,8 +192,9 @@ class SelectReactor:
     def completion(self):
         return ReactorCompletion(self)
     def register_callback(self, callback, waketime=NOW):
-        logging.info("121314141414")
+        logging.info("================ register_callback()-[SelectReactor] START ================")
         rcb = ReactorCallback(self, callback, waketime)
+        logging.info("================= register_callback()-[SelectReactor] END =================")
         return rcb.completion
     # Asynchronous (from another thread) callbacks and completions
     def register_async_callback(self, callback, waketime=NOW):      
