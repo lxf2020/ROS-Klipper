@@ -173,10 +173,10 @@ class SelectReactor:
             #logging.info(t)
             logging.info("  ")
             waketime = t.waketime
-            logging.info("eventtime is: "+eventtime)
-            logging.info(eventtime)
-            logging.info("waketime is: "+waketime)
-            logging.info(waketime)
+            logging.info("eventtime is: "+str(eventtime))
+            #logging.info(eventtime)
+            logging.info("waketime is: "+str(waketime))
+            #logging.info(waketime)
             logging.info("  ")
             if eventtime >= waketime:
                 t.waketime = self.NEVER               
