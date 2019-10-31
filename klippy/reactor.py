@@ -164,7 +164,7 @@ class SelectReactor:
         self._next_timer = self.NEVER
         g_dispatch = self._g_dispatch
         logging.info("  ")
-        logging.info("self._g_dispatch"+self._g_dispatch)
+        logging.info("self._g_dispatch"+str(self._g_dispatch))
         logging.info("  ")
         for t in self._timers:           
             logging.info("self._timers is: ")
