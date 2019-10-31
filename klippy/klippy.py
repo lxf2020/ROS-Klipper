@@ -327,6 +327,7 @@ def main():
             "Git version: %s" % (repr(start_args['software_version']),),
             "CPU: %s" % (util.get_cpu_info(),),
             "Python: %s" % (repr(sys.version),)])
+            logging.info("")
         logging.info("==================== printer parameter: ======================")
         logging.info(versions)
         logging.info("==============================================================")
