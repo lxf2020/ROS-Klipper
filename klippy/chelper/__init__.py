@@ -162,6 +162,7 @@ pyhelper_logging_callback = None
 def get_ffi():
     global FFI_main, FFI_lib, pyhelper_logging_callback
     if FFI_lib is None:
+        logging.info("")
         logging.info("=========================get_ffi()=========================")
         srcdir = os.path.dirname(os.path.realpath(__file__)) 
         logging.info("srcdir is : "+srcdir) 
@@ -171,10 +172,10 @@ def get_ffi():
         for d in defs_all:
             FFI_main.cdef(d)
         FFI_lib = FFI_main.dlopen(os.path.join(srcdir, DEST_LIB))
-        logging.info("FFI_lib is :")
-        logging.info(FFI_lib)  
-        logging.info("FFI_lib is :"+str(FFI_lib))
+ 
+        logging.info("FFI_lib is : "+str(FFI_lib))
         logging.info("=========================get_ffi() END =========================")
+        logging.info("")
         # Setup error logging
         def logging_callback(msg):
             logging.error(FFI_main.string(msg))
