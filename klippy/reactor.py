@@ -195,9 +195,9 @@ class SelectReactor:
     def completion(self):
         return ReactorCompletion(self)
     def register_callback(self, callback, waketime=NOW):
-        logging.info("================ register_callback()-[SelectReactor] START ================")
+        logging.info("============== register_callback()-[SelectReactor] START ==============")
         rcb = ReactorCallback(self, callback, waketime)
-        logging.info("================= register_callback()-[SelectReactor] END =================")
+        logging.info("=============== register_callback()-[SelectReactor] END ===============")
         return rcb.completion
     # Asynchronous (from another thread) callbacks and completions
     def register_async_callback(self, callback, waketime=NOW):      

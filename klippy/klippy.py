@@ -49,7 +49,7 @@ class Printer:
     config_error = configfile.error
     command_error = homing.CommandError
     def __init__(self, input_fd, bglogger, start_args):
-        logging.info("================== klippy.Printer.__init__ ===================") 
+        logging.info("=================== klippy.Printer.__init__ START ====================") 
         self.bglogger = bglogger
         self.start_args = start_args      
         self.reactor = reactor.Reactor()
@@ -60,7 +60,8 @@ class Printer:
         self.event_handlers = {}
         gc = gcode.GCodeParser(self, input_fd)
         self.objects = collections.OrderedDict({'gcode': gc})
-        logging.info("================ klippy.Printer.__init__ END =================")
+        logging.info("==================== klippy.Printer.__init__ END ====================")
+        logging.info("")
     def get_start_args(self):
         return self.start_args
     def get_reactor(self):
