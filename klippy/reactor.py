@@ -135,7 +135,6 @@ class SelectReactor:
           
         timer_handler = ReactorTimer(callback, waketime) 
         
-        self._timers = ["asd","qwe",1,2]
         logging.info("self._timers is: ")
         logging.info(self._timers)
 
