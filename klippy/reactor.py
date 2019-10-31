@@ -47,7 +47,7 @@ class ReactorCompletion:
 class ReactorCallback:
     def __init__(self, reactor, callback, waketime):
         logging.info("")
-        logging.info("=============== reactor.ReactorCallback.__init__ ==================")
+        logging.info("============= reactor.ReactorCallback.__init__ START ================")
         self.reactor = reactor
         self.timer = reactor.register_timer(self.invoke, waketime)
         self.callback = callback
@@ -234,6 +234,7 @@ class SelectReactor:
         util.set_nonblock(self._pipe_fds[1])
         self.register_fd(self._pipe_fds[0], self._got_pipe_signal)
         logging.info("============ _setup_async_callbacks()-[SelectReactor] END =============")
+        logging.info("  ")
     def __del__(self):
         if self._pipe_fds is not None:
             os.close(self._pipe_fds[0])
@@ -322,7 +323,7 @@ class SelectReactor:
         self._process = True
         g_next = ReactorGreenlet(run=self._dispatch_loop)
         logging.info("g_next = ReactorGreenlet(run=self._dispatch_loop), g_next: ")
-        logging.info(g_next)
+        logging.info(g_next.run)
         logging.info("========================= call switch() ============================")
         g_next.switch()
         logging.info("================ reactor.run()-[SelectReactor] END =================")

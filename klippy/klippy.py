@@ -221,6 +221,8 @@ class Printer:
         monotime = self.reactor.monotonic()
         logging.info("Start printer at %s (%.1f %.1f)",
                      time.asctime(time.localtime(systime)), systime, monotime)
+        
+        logging.info("  ")
         # Enter main reactor loop
         try:
             self.reactor.run()
