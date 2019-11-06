@@ -351,7 +351,7 @@ def main():
         time.sleep(1.)
         logging.info("Restarting printer")
         start_args['start_reason'] = res
-
+        logging.info("start_reason res: "+res)
     if bglogger is not None:
         bglogger.stop()
 

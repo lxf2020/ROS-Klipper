@@ -183,6 +183,7 @@ class SelectReactor:
             if eventtime >= waketime:
                 t.waketime = self.NEVER               
                 logging.info("============================= _check_timers() call "+t.callback.__name__+"(eventtime) =============================")
+                logging.info("  ")
                 t.waketime = waketime = t.callback(eventtime)
                 logging.info("t.waketime is: ")
                 logging.info(t.waketime)
