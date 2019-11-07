@@ -172,7 +172,7 @@ class SelectReactor:
         logging.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& FOR LOOP START &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         for t in self._timers:    
             aaa = aaa + 1       
-            logging.info("for loop count is: "+aaa)
+            logging.info("for loop count is: "+str(aaa))
             logging.info("self._timers is: ")
             logging.info(self._timers)
             logging.info("t is: "+str(t))
