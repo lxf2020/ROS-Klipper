@@ -189,8 +189,9 @@ class SelectReactor:
                 logging.info("============================= _check_timers() call "+t.callback.__name__+"(eventtime) =============================")
                 logging.info("  ")
                 t.waketime = waketime = t.callback(eventtime)
-                logging.info("t.waketime is: ")
-                logging.info(t.waketime)
+                logging.info("adadadadadadadadadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                #logging.info("t.waketime is: ")
+                #logging.info(t.waketime)
                 if g_dispatch is not self._g_dispatch:
                     self._next_timer = min(self._next_timer, waketime)
                     self._end_greenlet(g_dispatch)
@@ -270,14 +271,14 @@ class SelectReactor:
         logging.info(self._g_dispatch) 
         
         if g is not self._g_dispatch:
-            logging.info("================ g is not self._g_dispatch is true ============== ") 
+            logging.info("================ (g is not self._g_dispatch) is true ============== ") 
             if self._g_dispatch is None:
-                logging.info("======================= reactor.pause()-[SelectReactor] END 00=======================")
+                logging.info("======================= reactor.pause()-[SelectReactor] END 00 =======================")
                 return self._sys_pause(waketime)
             # Switch to _check_timers (via g.timer.callback return)
             logging.info("  ")
             logging.info("self._g_dispatch.switch will call :"+str(self._g_dispatch))
-            logging.info("======================= reactor.pause()-[SelectReactor] END 11=======================")
+            logging.info("======================= reactor.pause()-[SelectReactor] END 11 =======================")
             return self._g_dispatch.switch(waketime)
         # Pausing the dispatch greenlet - prepare a new greenlet to do dispatch
         if self._greenlets:

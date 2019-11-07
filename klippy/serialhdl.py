@@ -278,6 +278,7 @@ def stk500v2_leave(ser, reactor):
     ser.read(4096)
     ser.write('\x1b\x01\x00\x01\x0e\x11\x04')
     reactor.pause(reactor.monotonic() + 0.050)
+    logging.info("fan hui stk500v2_leave ==============================>>>>>>>>>>>>>>>")
     res = ser.read(4096)
     logging.debug("Got %s from stk500v2", repr(res))
     ser.baudrate = origbaud
