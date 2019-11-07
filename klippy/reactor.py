@@ -169,7 +169,7 @@ class SelectReactor:
         logging.info("self._g_dispatch: "+str(self._g_dispatch))
         logging.info("  ")
         aaa = 0
-        logging.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& FOR LOOP START &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        logging.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& _check_timers() FOR LOOP START &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         for t in self._timers:    
             aaa = aaa + 1       
             logging.info("for loop count is: "+str(aaa))
@@ -194,6 +194,7 @@ class SelectReactor:
                 if g_dispatch is not self._g_dispatch:
                     self._next_timer = min(self._next_timer, waketime)
                     self._end_greenlet(g_dispatch)
+                    logging.info("================ _check_timers()-[SelectReactor] END 02================")
                     return 0.
             self._next_timer = min(self._next_timer, waketime)
         logging.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& FOR LOOP END &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
@@ -274,6 +275,8 @@ class SelectReactor:
                 logging.info("======================= reactor.pause()-[SelectReactor] END 00=======================")
                 return self._sys_pause(waketime)
             # Switch to _check_timers (via g.timer.callback return)
+            logging.info("  ")
+            logging.info("self._g_dispatch.switch will call :"+str(self._g_dispatch))
             logging.info("======================= reactor.pause()-[SelectReactor] END 11=======================")
             return self._g_dispatch.switch(waketime)
         # Pausing the dispatch greenlet - prepare a new greenlet to do dispatch
