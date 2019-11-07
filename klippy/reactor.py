@@ -168,7 +168,11 @@ class SelectReactor:
         logging.info("  ")
         logging.info("self._g_dispatch: "+str(self._g_dispatch))
         logging.info("  ")
-        for t in self._timers:           
+        aaa = 0
+        logging.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& FOR LOOP START &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        for t in self._timers:    
+            aaa = aaa + 1       
+            logging.info("for loop count is: "+aaa)
             logging.info("self._timers is: ")
             logging.info(self._timers)
             logging.info("t is: "+str(t))
@@ -192,6 +196,8 @@ class SelectReactor:
                     self._end_greenlet(g_dispatch)
                     return 0.
             self._next_timer = min(self._next_timer, waketime)
+        logging.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& FOR LOOP END &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        
         if eventtime >= self._next_timer:
             logging.info("================ _check_timers()-[SelectReactor] END 00================")
             return 0.
@@ -368,10 +374,10 @@ class PollReactor(SelectReactor):
         while self._process:
             conut = conut+1
             logging.info("  ")
-            logging.info("********************** PollReactor._dispatch_loop while conut is :"+str(conut)+" **************************")
+            logging.info("********************** PollReactor._dispatch_loop loop conut is :"+str(conut)+" **************************")
             timeout = self._check_timers(eventtime)
             res = self._poll.poll(int(math.ceil(timeout * 1000.)))
-            logging.info("in reactor.PollReactor._dispatch_loop loop.............")
+            logging.info(" In reactor.PollReactor._dispatch_loop loop.............")
             eventtime = self.monotonic()
             logging.info("eventtime is :")
             logging.info(eventtime)
