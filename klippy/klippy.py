@@ -184,7 +184,7 @@ class Printer:
                 logging.info(cb)
                 logging.info("============================= call "+cb.__name__+" =============================")
                 cb()
-                logging.info("-----------------------cb for cycle-------------------------")
+                logging.info("-----------------------cb() for cycle-------------------------")
                              
         except (self.config_error, pins.error) as e:
             logging.exception("Config error")
@@ -213,7 +213,7 @@ class Printer:
             logging.exception("Unhandled exception during ready callback")
             self.invoke_shutdown("Internal error during ready callback: %s" % (
                 str(e),))
-        logging.info("==================== printer._connect-[Printer] START =====================")
+        logging.info("==================== printer._connect-[Printer] END =====================")
     def run(self):
         logging.info("  ")
         logging.info("===================================== printer.run()-[Printer] START ========================================")
