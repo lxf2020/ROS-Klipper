@@ -107,7 +107,7 @@ class SerialReader:
             logging.info("================this is serialhdl.connect==============44 ")
             self.background_thread.start()
             logging.info("================this is serialhdl.connect==============55 ")
-            logging.info()
+            logging.info("")
             # Obtain and load the data dictionary from the firmware
             try:
                 identify_data = self._get_identify_data(connect_time + 5.)
